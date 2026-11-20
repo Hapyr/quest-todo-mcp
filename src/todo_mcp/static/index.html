@@ -1,0 +1,2870 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#f8fafd" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#131314" media="(prefers-color-scheme: dark)">
+<title>Aufgaben</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='11' fill='%230b57d0'/%3E%3Cpath d='M7 12.5l3.2 3.2L17 9' stroke='white' stroke-width='2.2' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+<meta name="mobile-web-app-capable" content="yes">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:wght@400;500;600&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+<!-- Nur die verwendeten Symbole laden (wenige KB statt der ganzen Schrift). Neues Symbol? Hier alphabetisch ergänzen. -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..24,400,0..1,0&icon_names=add,arrow_back,arrow_forward,auto_awesome,auto_stories,calendar_month,center_focus_strong,check,check_circle,checklist,chevron_left,chevron_right,close,content_copy,download,emoji_events,error,event,event_available,event_busy,extension,flag,folder,history,inbox,info,insights,lightbulb,logout,more_time,notifications,notifications_active,notifications_off,pause,pause_circle,pin,play_arrow,play_circle,radio_button_unchecked,rocket_launch,schedule,search,search_off,sell,settings,shield,task_alt,timelapse,timer,verified_user,view_kanban,view_week,wb_sunny&display=block" rel="stylesheet">
+<style>
+  :root {
+    color-scheme: light dark;
+    --bg: #f8fafd; --surface: #ffffff; --container: #f0f4f9; --container-high: #e9eef6;
+    --text: #1f1f1f; --text-2: #444746; --text-3: #747775; --outline: #c4c7c5; --divider: #e1e3e1;
+    --primary: #0b57d0; --on-primary: #ffffff; --primary-container: #d3e3fd; --on-primary-container: #041e49;
+    --hover: rgba(68, 71, 70, .08); --danger: #b3261e;
+    --p-high: #d93025; --p-medium: #e37400; --p-low: #1a73e8;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 1px 3px 1px rgba(0,0,0,.15);
+    --radius: 16px;
+    --inverse: #303030; --on-inverse: #f2f2f2; --inverse-primary: #a8c7fa; --field: #f0f4f9;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #131314; --surface: #1e1f20; --container: #1e1f20; --container-high: #282a2c;
+      --text: #e3e3e3; --text-2: #c4c7c5; --text-3: #8e918f; --outline: #444746; --divider: #333537;
+      --primary: #a8c7fa; --on-primary: #062e6f; --primary-container: #0842a0; --on-primary-container: #d3e3fd;
+      --hover: rgba(227, 227, 227, .08); --danger: #f2b8b5;
+      --p-high: #f28b82; --p-medium: #fdd663; --p-low: #8ab4f8;
+      --shadow: 0 1px 3px rgba(0,0,0,.6);
+      --inverse: #e3e3e3; --on-inverse: #303030; --inverse-primary: #0b57d0; --field: #2a2b2d;
+    }
+  }
+  * { box-sizing: border-box; }
+  [hidden] { display: none !important; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font: 400 14px/1.45 "Google Sans Flex", "Google Sans", Roboto, system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  button { font: inherit; color: inherit; }
+  .icon {
+    font-family: "Material Symbols Rounded"; font-weight: normal; font-style: normal; font-size: 20px;
+    line-height: 1; display: inline-block; white-space: nowrap; direction: ltr; user-select: none;
+    text-transform: none; letter-spacing: normal; /* sonst greift die Ligatur nicht */
+    font-variation-settings: "FILL" 0, "wght" 400, "opsz" 20;
+  }
+  .icon.fill { font-variation-settings: "FILL" 1, "wght" 400, "opsz" 20; }
+
+  /* --- Kopfzeile --- */
+  header {
+    position: sticky; top: 0; z-index: 10; background: var(--bg);
+    padding: 8px max(16px, env(safe-area-inset-right)) 0 max(16px, env(safe-area-inset-left));
+  }
+  .bar { display: flex; align-items: center; gap: 12px; height: 56px; }
+  .brand { display: flex; align-items: center; gap: 10px; font-size: 22px; color: var(--text-2); flex-shrink: 0; }
+  .brand svg { width: 32px; height: 32px; }
+  .search {
+    flex: 1; min-width: 0; max-width: 720px; margin: 0 auto; display: flex; align-items: center; gap: 12px;
+    height: 48px; padding: 0 16px; border-radius: 24px; background: var(--container-high); color: var(--text-2);
+  }
+  .search:focus-within { background: var(--surface); box-shadow: var(--shadow); }
+  .search input { flex: 1; min-width: 0; border: 0; outline: 0; background: transparent; font: inherit; font-size: 16px; color: var(--text); }
+  .icon-btn {
+    width: 40px; height: 40px; border-radius: 50%; border: 0; background: transparent; cursor: pointer;
+    display: grid; place-items: center; color: var(--text-2); flex-shrink: 0;
+  }
+  .icon-btn:hover { background: var(--hover); }
+  .sync { width: 8px; height: 8px; border-radius: 50%; background: #1e8e3e; flex-shrink: 0; transition: background .3s; }
+  .sync.stale { background: var(--text-3); }
+
+  .toolbar { display: flex; align-items: center; gap: 12px; padding: 12px 0; flex-wrap: wrap; }
+  .segmented { display: inline-flex; border: 1px solid var(--outline); border-radius: 20px; overflow: hidden; flex-shrink: 0; }
+  .segmented button {
+    height: 36px; padding: 0 16px; border: 0; background: transparent; cursor: pointer; display: flex;
+    align-items: center; gap: 6px; font-weight: 500; color: var(--text);
+  }
+  .segmented button + button { border-left: 1px solid var(--outline); }
+  .segmented button:hover { background: var(--hover); }
+  .segmented button[aria-pressed="true"] { background: var(--primary-container); color: var(--on-primary-container); }
+  .segmented .icon { font-size: 18px; }
+  .chips { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; flex: 1; min-width: 0; }
+  .chips::-webkit-scrollbar { display: none; }
+  .chip {
+    height: 32px; padding: 0 12px; border-radius: 8px; border: 1px solid var(--outline); background: transparent;
+    cursor: pointer; display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; font-weight: 500;
+    color: var(--text-2); flex-shrink: 0;
+  }
+  .chip:hover { background: var(--hover); }
+  .chip[aria-pressed="true"] { background: var(--primary-container); border-color: transparent; color: var(--on-primary-container); }
+  .dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+
+  main { padding: 0 max(16px, env(safe-area-inset-right)) 48px max(16px, env(safe-area-inset-left)); }
+  .wrap { max-width: 880px; margin: 0 auto; }
+
+  /* --- Liste --- */
+  .group { margin-top: 20px; }
+  .group h2 {
+    font-size: 14px; font-weight: 500; color: var(--text-2); margin: 0 0 8px 4px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .group h2 .count { color: var(--text-3); font-weight: 400; }
+  .group.overdue h2 { color: var(--danger); }
+  .panel { background: var(--surface); border-radius: var(--radius); overflow: hidden; }
+  .row {
+    display: flex; align-items: flex-start; gap: 14px; padding: 12px 16px; cursor: pointer; width: 100%;
+    background: transparent; border: 0; text-align: left;
+  }
+  .row + .row { border-top: 1px solid var(--divider); }
+  .status-btn {
+    border: 0; background: transparent; padding: 0; margin: -6px; width: 32px; height: 32px; border-radius: 50%;
+    display: grid; place-items: center; cursor: pointer; flex-shrink: 0;
+  }
+  .status-btn:hover { background: var(--hover); }
+  .status-btn:hover .status.todo { font-variation-settings: "FILL" 0, "wght" 600, "opsz" 20; color: var(--primary); }
+  .row:hover { background: var(--hover); }
+  .status { color: var(--text-3); margin-top: 1px; }
+  .status.doing { color: var(--primary); }
+  .status.done { color: var(--primary); }
+  .row-main { flex: 1; min-width: 0; }
+  .title { font-size: 15px; color: var(--text); overflow-wrap: anywhere; }
+  .done-task .title { color: var(--text-3); text-decoration: line-through; }
+  .deferred-task .title { color: var(--text-2); }
+  .notes {
+    color: var(--text-2); font-size: 13px; margin-top: 2px; overflow: hidden;
+    display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; white-space: pre-line;
+  }
+  .meta { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+  .meta:empty { display: none; }
+  .tag {
+    height: 24px; padding: 0 8px; border-radius: 6px; background: var(--container-high); color: var(--text-2);
+    display: inline-flex; align-items: center; gap: 4px; font-size: 12px; font-weight: 500; white-space: nowrap;
+  }
+  .tag .icon { font-size: 15px; }
+  .tag.due-overdue { color: var(--danger); }
+  .tag.due-today { color: var(--primary); }
+  .prio { flex-shrink: 0; margin-top: 2px; }
+  .prio.high { color: var(--p-high); } .prio.medium { color: var(--p-medium); } .prio.low { color: var(--p-low); }
+  details.fold-group summary {
+    list-style: none; cursor: pointer; font-size: 14px; font-weight: 500; color: var(--text-2);
+    display: flex; align-items: center; gap: 8px; margin: 0 0 8px 4px; user-select: none;
+  }
+  details.fold-group summary::-webkit-details-marker { display: none; }
+  details.fold-group summary .icon { transition: transform .2s; }
+  details.fold-group[open] summary .icon { transform: rotate(90deg); }
+
+  /* --- Board --- */
+  .board {
+    display: grid; grid-template-columns: repeat(4, minmax(240px, 1fr)); gap: 16px; margin-top: 8px;
+    max-width: 1280px; margin-left: auto; margin-right: auto;
+  }
+  .column { background: var(--container); border-radius: var(--radius); padding: 12px; min-height: 160px; }
+  .column h2 { font-size: 14px; font-weight: 500; margin: 4px 6px 12px; display: flex; align-items: center; gap: 8px; color: var(--text-2); }
+  .column h2 .count {
+    margin-left: auto; min-width: 24px; height: 20px; padding: 0 6px; border-radius: 10px;
+    background: var(--container-high); display: grid; place-items: center; font-size: 12px;
+  }
+  .card {
+    background: var(--surface); border-radius: 12px; padding: 12px 14px; margin-bottom: 8px; cursor: pointer;
+    border: 0; width: 100%; text-align: left; display: block; border-left: 3px solid transparent;
+    box-shadow: 0 1px 2px rgba(0,0,0,.06);
+  }
+  .card:hover { box-shadow: var(--shadow); }
+  [data-drag] { -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
+  .drag-source { opacity: .35; }
+  .drag-ghost {
+    position: fixed; left: 0; top: 0; z-index: 100; pointer-events: none; margin: 0;
+    box-shadow: 0 8px 24px rgba(0,0,0,.25); transform-origin: 30px 20px; opacity: .96;
+  }
+  body.dragging, body.dragging * { cursor: grabbing !important; }
+  .column.drop-target { background: var(--primary-container); outline: 2px dashed var(--primary); outline-offset: -2px; }
+  .day.drop-target { background: var(--primary-container); box-shadow: inset 0 0 0 2px var(--primary); }
+  .card .top { display: flex; gap: 8px; align-items: flex-start; }
+  .card .title { flex: 1; }
+  .column .empty-col { color: var(--text-3); text-align: center; padding: 24px 0; font-size: 13px; }
+
+  /* --- Kalender --- */
+  .cal { max-width: 1280px; margin: 8px auto 0; }
+  .cal-head { display: flex; align-items: center; gap: 4px; margin-bottom: 12px; flex-wrap: wrap; }
+  .cal-head h2 { font-size: 22px; font-weight: 400; margin: 0 0 0 12px; }
+  .outlined-btn {
+    height: 36px; padding: 0 16px; border-radius: 18px; border: 1px solid var(--outline); background: transparent;
+    cursor: pointer; font-weight: 500; margin-right: 4px; white-space: nowrap; flex-shrink: 0;
+  }
+  .outlined-btn:hover { background: var(--hover); }
+  .grid { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); background: var(--surface); border-radius: var(--radius); overflow: hidden; }
+  .weekday { padding: 10px 8px 6px; font-size: 11px; font-weight: 500; color: var(--text-2); text-align: center; text-transform: uppercase; letter-spacing: .5px; }
+  .day {
+    min-height: 116px; border-top: 1px solid var(--divider); border-left: 1px solid var(--divider);
+    padding: 4px; cursor: pointer; display: flex; flex-direction: column; gap: 2px; background: transparent;
+    border-right: 0; border-bottom: 0; text-align: left; min-width: 0;
+  }
+  .day:nth-child(7n + 1) { border-left: 0; }
+  .day:hover { background: var(--hover); }
+  .day.other { color: var(--text-3); }
+  .day.selected { background: var(--hover); }
+  .day-num {
+    align-self: center; width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center;
+    font-size: 12px; font-weight: 500; margin-bottom: 2px;
+  }
+  .day.today .day-num { background: var(--primary); color: var(--on-primary); }
+  .pill {
+    font-size: 12px; padding: 1px 6px; border-radius: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    color: var(--text); background: var(--container-high); border-left: 3px solid var(--text-3);
+  }
+  .pill.done { color: var(--text-3); text-decoration: line-through; }
+  .pill.deferred { color: var(--text-3); font-style: italic; }
+  .more { font-size: 11px; color: var(--text-2); padding: 0 6px; font-weight: 500; }
+  .dots { display: none; justify-content: center; gap: 3px; flex-wrap: wrap; }
+  .dots .dot { width: 6px; height: 6px; }
+  .day-detail { margin-top: 20px; }
+  .no-date { margin-top: 20px; }
+
+  /* --- Leer- & Detailansicht --- */
+  .empty { text-align: center; color: var(--text-2); padding: 72px 16px; }
+  .empty .icon { font-size: 56px; color: var(--primary); opacity: .7; }
+  .empty h3 { font-size: 20px; font-weight: 400; color: var(--text); margin: 16px 0 8px; }
+  .empty p { margin: 0 auto; max-width: 380px; }
+  dialog {
+    border: 0; padding: 0; border-radius: 28px; width: min(560px, calc(100vw - 32px)); max-height: calc(100vh - 64px);
+    background: var(--surface); color: var(--text); box-shadow: 0 8px 32px rgba(0,0,0,.3);
+  }
+  dialog::backdrop { background: rgba(0,0,0,.32); }
+  .dlg { padding: 24px; }
+  .dlg-head { display: flex; gap: 12px; align-items: flex-start; }
+  .dlg-head h3 { flex: 1; font-size: 22px; font-weight: 400; margin: 4px 0 0; overflow-wrap: anywhere; }
+  .dlg-status { margin: 12px 0 4px; }
+  .badge {
+    display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 12px; border-radius: 14px;
+    font-size: 13px; font-weight: 500; background: var(--container-high); color: var(--text-2);
+  }
+  .badge.doing { background: var(--primary-container); color: var(--on-primary-container); }
+  .fields { margin: 16px 0 0; display: grid; grid-template-columns: auto 1fr; gap: 10px 20px; }
+  .fields dt { color: var(--text-2); display: flex; align-items: center; gap: 8px; }
+  .fields dd { margin: 0; display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+  .dlg-notes {
+    margin-top: 20px; padding: 16px; border-radius: 12px; background: var(--container); white-space: pre-wrap;
+    overflow-wrap: anywhere; color: var(--text);
+  }
+  .dlg-notes a { color: var(--primary); }
+  .dlg-head .title-input {
+    flex: 1; font-family: inherit; font-size: 22px; font-weight: 400; line-height: 1.3; color: var(--text); border: 0; background: transparent;
+    resize: none; padding: 6px 10px; margin: -2px 0 0 -10px; border-radius: 8px; overflow: hidden; outline: none;
+  }
+  .title-input:hover, .f input:hover { background: var(--field); }
+  .title-input:focus, .notes-input:focus, .f input:focus { background: var(--container-high); }
+  .seg-status { margin: 12px 0 8px; display: flex; width: 100%; max-width: 100%; }
+  .seg-status label { display: flex; flex: 1; min-width: 0; }
+  .seg-status input, .prio-row input { position: absolute; opacity: 0; pointer-events: none; }
+  .seg-status label > span {
+    flex: 1; height: 36px; padding: 0 8px; display: flex; align-items: center; justify-content: center; gap: 6px;
+    cursor: pointer; font-weight: 500; white-space: nowrap;
+  }
+  .seg-status label + label > span { border-left: 1px solid var(--outline); }
+  .seg-status label > span:hover { background: var(--hover); }
+  .seg-status input:checked + span { background: var(--primary-container); color: var(--on-primary-container); }
+  .seg-status input:focus-visible + span, .prio-row input:focus-visible + span { outline: 2px solid var(--primary); outline-offset: -2px; }
+  .form { margin-top: 8px; }
+  .f { display: flex; align-items: center; gap: 14px; min-height: 44px; color: var(--text-2); }
+  .f > .icon { width: 24px; text-align: center; flex-shrink: 0; }
+  .f input {
+    flex: 1; min-width: 0; border: 0; background: transparent; color: var(--text); font: inherit; font-size: 15px;
+    padding: 9px 10px; border-radius: 8px; outline: none;
+  }
+  .f input::placeholder, .notes-input::placeholder, .title-input::placeholder { color: var(--text-3); }
+  .f .pair { flex: 1; display: flex; gap: 8px; min-width: 0; }
+  .f .pair input[type="date"] { flex: 1.4; } .f .pair input[type="time"] { flex: 1; }
+  .prio-row { flex: 1; display: flex; gap: 6px; flex-wrap: wrap; padding: 4px 0; }
+  .prio-row label > span {
+    height: 30px; padding: 0 12px; border-radius: 8px; border: 1px solid var(--outline); display: inline-flex;
+    align-items: center; gap: 4px; cursor: pointer; font-weight: 500; font-size: 13px;
+  }
+  .prio-row label > span:hover { background: var(--hover); }
+  .prio-row input:checked + span { background: var(--primary-container); border-color: transparent; color: var(--on-primary-container); }
+  .prio-row .icon { font-size: 16px; }
+  .notes-input {
+    display: block; width: 100%; min-height: 110px; margin-top: 12px; padding: 12px 14px; border: 0; border-radius: 12px;
+    background: var(--field); color: var(--text); font: inherit; font-size: 14px; resize: vertical; outline: none;
+  }
+  .form-error { color: var(--danger); font-size: 13px; margin: 8px 2px 0; }
+  .dlg-meta { margin-top: 14px; color: var(--text-3); font-size: 12px; display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+  .dlg-actions { display: flex; align-items: center; gap: 8px; margin-top: 20px; }
+  .dlg-actions .spacer { flex: 1; }
+  .btn {
+    height: 40px; padding: 0 20px; border-radius: 20px; border: 0; font-weight: 500; cursor: pointer; background: transparent;
+    display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  }
+  .btn .icon { font-size: 20px; }
+  .btn.outlined { border: 1px solid var(--outline); color: var(--text); }
+  .btn.outlined:hover { background: var(--hover); }
+  .btn.text { color: var(--primary); }
+  .btn.text:hover { background: var(--hover); }
+  .btn.danger { color: var(--danger); padding: 0 14px; }
+  .btn.danger.armed { background: var(--danger); color: var(--surface); }
+  .btn.filled { background: var(--primary); color: var(--on-primary); }
+  .btn.filled:hover { box-shadow: 0 1px 3px rgba(0,0,0,.3); }
+  .snack {
+    position: fixed; left: 50%; bottom: max(24px, env(safe-area-inset-bottom)); z-index: 200;
+    transform: translate(-50%, 24px); opacity: 0; pointer-events: none; transition: all .2s ease;
+    display: flex; align-items: center; gap: 8px; min-height: 48px; max-width: calc(100vw - 32px);
+    padding: 6px 8px 6px 16px; border-radius: 8px; background: var(--inverse); color: var(--on-inverse);
+    box-shadow: 0 4px 12px rgba(0,0,0,.25);
+  }
+  .notify p { color: var(--text-2); margin: 8px 0 0; }
+  .notify ul { color: var(--text-2); margin: 12px 0 0; padding-left: 20px; }
+  .notify li { margin: 4px 0; }
+  .notify .state { display: flex; align-items: center; gap: 10px; margin-top: 18px; padding: 12px 14px; border-radius: 12px; background: var(--field); }
+  .notify .state .icon { color: var(--primary); }
+  .snack.show { transform: translate(-50%, 0); opacity: 1; pointer-events: auto; }
+  .snack span { padding-right: 8px; }
+  .snack button { height: 36px; padding: 0 12px; border: 0; border-radius: 18px; background: transparent; color: var(--inverse-primary); font-weight: 500; cursor: pointer; }
+
+  /* --- Fokus-Pille in der Kopfzeile --- */
+  .run-pill {
+    height: 36px; padding: 0 14px 0 10px; border-radius: 18px; border: 1px solid var(--outline); background: transparent;
+    cursor: pointer; display: inline-flex; align-items: center; gap: 8px; font-weight: 500; flex-shrink: 0; max-width: 260px;
+  }
+  .run-pill:hover { background: var(--hover); }
+  .run-pill .icon { color: var(--primary); }
+  .run-pill.running { background: var(--primary-container); color: var(--on-primary-container); border-color: transparent; }
+  .run-pill .clock { font-variant-numeric: tabular-nums; }
+  .run-pill .what { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .run-pill.running .what { font-weight: 400; opacity: .85; }
+  .pulse { width: 8px; height: 8px; border-radius: 50%; background: var(--primary); flex-shrink: 0; animation: pulse 1.6s ease-in-out infinite; }
+  @keyframes pulse { 50% { opacity: .25; } }
+
+  /* --- Seitenkopf (Heute, Planen, Quests, Rückblick) --- */
+  .page { max-width: 1280px; margin: 8px auto 0; }
+  .page-head { display: flex; align-items: flex-end; gap: 12px 20px; flex-wrap: wrap; margin: 8px 0 20px; }
+  .page-head h1 { font-size: 28px; font-weight: 400; margin: 0; }
+  .page-head .sub { color: var(--text-2); margin: 4px 0 0; }
+  .page-head .grow { flex: 1; }
+  .week-nav { display: flex; align-items: center; gap: 4px; }
+  .week-nav .range { font-weight: 500; margin: 0 6px; white-space: nowrap; }
+  .progress { height: 6px; border-radius: 3px; background: var(--container-high); overflow: hidden; }
+  .progress > span { display: block; height: 100%; background: var(--primary); border-radius: 3px; max-width: 100%; }
+  .today-stats { display: flex; align-items: center; gap: 24px; }
+  .stat-inline { text-align: right; }
+  .stat-inline b { font-size: 26px; font-weight: 400; font-variant-numeric: tabular-nums; }
+  .stat-inline small, .week-progress small { color: var(--text-2); display: block; font-size: 12px; }
+  .week-progress { width: 190px; cursor: pointer; }
+  .week-progress small { margin-top: 6px; }
+
+  /* --- Heute --- */
+  .today { display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: 24px; align-items: start; }
+  .today > * { min-width: 0; }
+  .today > div > .group:first-child { margin-top: 0; }
+  .group h2 .aside { margin-left: auto; color: var(--text-3); font-weight: 400; font-variant-numeric: tabular-nums; }
+  .row .side { display: flex; align-items: center; gap: 2px; flex-shrink: 0; margin: -8px -8px -8px 0; }
+  .row .side .prio { margin: 0 4px; }
+  .tracked { font-size: 13px; color: var(--text-2); font-variant-numeric: tabular-nums; min-width: 40px; text-align: right; }
+  .play { color: var(--primary); }
+  .row.running { background: color-mix(in srgb, var(--primary-container) 60%, transparent); }
+  .row.running .tracked { color: var(--on-primary-container); font-weight: 500; }
+  .tag.quest .icon, .tag .icon.fill { font-size: 15px; }
+  .tag { max-width: 100%; }
+  .tag .tx { overflow: hidden; text-overflow: ellipsis; }
+  .tag.carried { color: var(--p-medium); }
+  .plan-btn {
+    height: 32px; padding: 0 12px 0 8px; border-radius: 16px; border: 1px solid var(--outline); background: transparent;
+    cursor: pointer; display: inline-flex; align-items: center; gap: 4px; font-weight: 500; color: var(--primary); flex-shrink: 0;
+  }
+  .plan-btn:hover { background: var(--hover); }
+  .plan-btn .icon { font-size: 18px; }
+  .hint-row { padding: 14px 16px; color: var(--text-2); display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+  .hint-row .icon { color: var(--text-3); }
+  .link-btn { border: 0; background: transparent; color: var(--primary); font-weight: 500; cursor: pointer; padding: 0; }
+
+  /* --- Zeitleiste & Wochenraster --- */
+  .timeline-card { background: var(--surface); border-radius: var(--radius); overflow: hidden; position: sticky; top: 132px; }
+  .timeline-card h2 {
+    font-size: 14px; font-weight: 500; color: var(--text-2); margin: 0; padding: 14px 16px 10px;
+    display: flex; align-items: center; gap: 8px; border-bottom: 1px solid var(--divider);
+  }
+  .timeline-card h2 .aside { margin-left: auto; color: var(--text-3); font-weight: 400; }
+  .tl-scroll { overflow-y: auto; max-height: calc(100vh - 210px); --hour: 44px; }
+  .week-card { background: var(--surface); border-radius: var(--radius); overflow: hidden; }
+  .week-card .tl-scroll { max-height: calc(100vh - 230px); min-height: 360px; }
+  .tl, .tl-head { display: grid; grid-template-columns: 52px repeat(var(--days), minmax(0, 1fr)); }
+  .tl { padding-top: 8px; }
+  .tl-head { position: sticky; top: 0; z-index: 4; background: var(--surface); border-bottom: 1px solid var(--divider); }
+  .tl-head > div { padding: 8px 4px; text-align: center; font-size: 12px; color: var(--text-2); min-width: 0; }
+  .tl-head b { display: block; font-weight: 500; color: var(--text); font-size: 13px; }
+  .tl-head .is-today b { color: var(--primary); }
+  .tl-head small { font-variant-numeric: tabular-nums; }
+  .tl-hour { height: var(--hour); font-size: 11px; color: var(--text-3); text-align: right; padding-right: 8px; transform: translateY(-7px); }
+  .tl-day {
+    position: relative; border-left: 1px solid var(--divider); min-width: 0;
+    background: repeating-linear-gradient(to bottom, var(--divider) 0 1px, transparent 1px var(--hour));
+  }
+  .tl-day.is-today { background-color: color-mix(in srgb, var(--primary-container) 22%, transparent); }
+  .block {
+    position: absolute; left: 3px; right: 3px; border-radius: 6px; padding: 2px 6px; font: 500 11px/1.3 inherit;
+    overflow: hidden; color: #fff; cursor: pointer; border: 0; text-align: left; background: var(--primary);
+    white-space: nowrap; text-overflow: ellipsis; z-index: 1;
+  }
+  .block:hover { filter: brightness(1.08); box-shadow: var(--shadow); z-index: 2; }
+  .block.plain { background: var(--container-high); color: var(--text); box-shadow: inset 3px 0 0 var(--text-3); }
+  .block.running { background-image: repeating-linear-gradient(135deg, rgba(255,255,255,.18) 0 6px, transparent 6px 12px); }
+  .now-line { position: absolute; left: -1px; right: 0; height: 2px; background: var(--danger); z-index: 3; pointer-events: none; }
+  .now-line::before { content: ""; position: absolute; left: -4px; top: -3px; width: 8px; height: 8px; border-radius: 50%; background: var(--danger); }
+
+  /* --- Planen --- */
+  .plan { display: flex; gap: 12px; overflow-x: auto; padding-bottom: 12px; align-items: stretch; }
+  .plan .column { flex: 0 0 216px; min-width: 0; min-height: 62vh; }
+  .plan .backlog { flex-basis: 288px; position: sticky; left: 0; z-index: 3; box-shadow: 10px 0 12px -12px rgba(0,0,0,.35); }
+  .plan .column h2 b { font-weight: 500; }
+  .plan .column h2 small { color: var(--text-3); font-weight: 400; font-variant-numeric: tabular-nums; }
+  .plan .today-col { box-shadow: inset 0 3px 0 var(--primary); }
+  .plan .today-col h2 { color: var(--primary); }
+  .plan .past { opacity: .8; }
+  .sub-head { font-size: 12px; font-weight: 500; color: var(--text-2); margin: 14px 6px 8px; display: flex; align-items: center; gap: 6px; }
+  .sub-head:first-of-type { margin-top: 4px; }
+  .card.mini { padding: 10px 12px; }
+  .card.mini .title { font-size: 14px; }
+  .card.done-task .title { color: var(--text-3); text-decoration: line-through; }
+  .column.drop-target { background: var(--primary-container); outline: 2px dashed var(--primary); outline-offset: -2px; }
+
+  /* --- Fokus --- */
+  dialog.focus {
+    width: 100vw; height: 100vh; height: 100dvh; max-width: none; max-height: none; border-radius: 0; margin: 0;
+    background: var(--bg); box-shadow: none;
+  }
+  dialog.focus::backdrop { background: var(--bg); }
+  .focus-wrap { min-height: 100%; display: flex; flex-direction: column; padding: max(16px, env(safe-area-inset-top)) 24px 32px; }
+  .focus-top { display: flex; align-items: center; gap: 12px; }
+  .focus-top .label { margin-left: auto; font-size: 12px; letter-spacing: 1.2px; text-transform: uppercase; color: var(--text-2); display: flex; align-items: center; gap: 8px; }
+  .focus-main { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 12px; padding: 32px 0 24px; }
+  .focus-title { font-size: 26px; max-width: 720px; overflow-wrap: anywhere; }
+  .focus-clock { font-size: clamp(76px, 17vw, 176px); line-height: 1; font-variant-numeric: tabular-nums; letter-spacing: -3px; margin: 8px 0 4px; }
+  .focus-state { letter-spacing: 1.5px; font-size: 12px; text-transform: uppercase; color: var(--text-2); }
+  .focus-actions { display: flex; gap: 12px; margin-top: 16px; flex-wrap: wrap; justify-content: center; }
+  .focus-actions .btn { height: 48px; padding: 0 24px; border-radius: 24px; font-size: 15px; }
+  .focus-notes { width: min(720px, 100%); margin: 0 auto; min-height: 120px; }
+  .focus-next { width: min(720px, 100%); margin: 24px auto 0; }
+  .focus-next h3, .pick h3 { font-size: 13px; font-weight: 500; color: var(--text-2); margin: 0 0 10px; }
+  .switch-list { display: flex; flex-wrap: wrap; gap: 8px; }
+  .switch-list .chip { max-width: 100%; }
+  .switch-list .chip span:last-child { overflow: hidden; text-overflow: ellipsis; }
+  .pick { width: min(560px, 100%); text-align: left; }
+  .pick .panel { margin-top: 8px; }
+
+  /* --- Quests --- */
+  .tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
+  .tile { background: var(--surface); border-radius: var(--radius); padding: 16px 20px; border: 0; text-align: left; min-width: 0; }
+  button.tile { cursor: pointer; } button.tile:hover { box-shadow: var(--shadow); }
+  .tile .k, .chart-card h3 { font-size: 12px; color: var(--text-2); text-transform: uppercase; letter-spacing: .6px; font-weight: 500; margin: 0; }
+  .tile .v { font-size: 30px; margin-top: 6px; font-variant-numeric: tabular-nums; }
+  .tile .v small { font-size: 15px; color: var(--text-2); }
+  .tile .hint { color: var(--text-2); font-size: 12px; margin-top: 2px; }
+  .tile .progress { margin-top: 10px; }
+  .quest-tabs { display: flex; align-items: center; gap: 12px; margin: 24px 0 0; }
+  .quest-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; margin-top: 16px; }
+  .quest-card {
+    background: var(--surface); border-radius: var(--radius); padding: 16px 18px; cursor: pointer; border: 0; text-align: left;
+    box-shadow: inset 0 3px 0 var(--qc); display: flex; flex-direction: column; gap: 12px; min-height: 180px; min-width: 0;
+  }
+  .quest-card:hover { box-shadow: inset 0 3px 0 var(--qc), var(--shadow); }
+  .quest-card.completed { opacity: .75; }
+  .qhead { display: flex; gap: 12px; align-items: center; min-width: 0; }
+  .q-icon { width: 38px; height: 38px; border-radius: 10px; display: grid; place-items: center; background: var(--qc); color: #fff; flex-shrink: 0; }
+  .qtitle { font-size: 16px; font-weight: 500; overflow-wrap: anywhere; }
+  .qsub { color: var(--text-2); font-size: 12px; }
+  .qfoot { margin-top: auto; display: flex; align-items: flex-end; gap: 12px; }
+  .qfoot .big { font-size: 26px; font-variant-numeric: tabular-nums; }
+  .qfoot .end { margin-left: auto; text-align: right; }
+  .spark { width: 104px; height: 34px; display: block; margin-bottom: 2px; }
+  .quest-card.new { box-shadow: none; border: 2px dashed var(--outline); background: transparent; align-items: center; justify-content: center; color: var(--text-2); font-weight: 500; }
+  .quest-card.new:hover { background: var(--hover); box-shadow: none; }
+  .quest-card.new .icon { font-size: 28px; }
+  .swatches { display: flex; flex-wrap: wrap; gap: 10px; margin: 14px 0 4px; }
+  .swatches input { position: absolute; opacity: 0; pointer-events: none; }
+  .swatches span { width: 28px; height: 28px; border-radius: 50%; display: block; cursor: pointer; box-shadow: inset 0 0 0 2px rgba(0,0,0,.08); }
+  .swatches input:checked + span { box-shadow: 0 0 0 2px var(--surface), 0 0 0 4px var(--text); }
+  .swatches input:focus-visible + span { outline: 2px solid var(--primary); outline-offset: 4px; }
+  .dlg .group h2 { margin-left: 0; }
+  .dlg .panel { background: var(--container); }
+  .muted { color: var(--text-2); font-size: 13px; margin: 0; }
+
+  /* --- Rückblick --- */
+  .review-grid { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 12px; margin-top: 12px; }
+  .review-grid .stack { display: grid; gap: 12px; align-content: start; }
+  .chart-card { background: var(--surface); border-radius: var(--radius); padding: 16px 20px 18px; min-width: 0; }
+  .chart-card h3 { margin-bottom: 16px; display: flex; align-items: baseline; gap: 4px 8px; flex-wrap: wrap; }
+  .chart-card h3 .aside { margin-left: auto; text-transform: none; letter-spacing: 0; font-weight: 400; color: var(--text-3); }
+  .chart { position: relative; display: flex; align-items: flex-end; gap: 8px; height: 172px; border-bottom: 1px solid var(--divider); }
+  .bar-col { flex: 1; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; height: 100%; min-width: 0; }
+  .bar-val { font-size: 11px; color: var(--text-2); margin-bottom: 4px; white-space: nowrap; font-variant-numeric: tabular-nums; }
+  .vbar { width: 100%; max-width: 44px; display: flex; flex-direction: column-reverse; border-radius: 6px 6px 0 0; overflow: hidden; min-height: 0; }
+  .vbar span { display: block; width: 100%; }
+  .chart-labels { display: flex; gap: 8px; margin-top: 6px; }
+  .chart-labels span { flex: 1; text-align: center; font-size: 11px; color: var(--text-2); min-width: 0; white-space: nowrap; overflow: hidden; }
+  .chart-labels .cur { color: var(--text); font-weight: 500; }
+  .ref { position: absolute; left: 0; right: 0; border-top: 1px dashed var(--text-3); pointer-events: none; z-index: 1; }
+  .ref span { position: absolute; right: 0; top: -17px; font-size: 11px; color: var(--text-3); background: var(--surface); padding-left: 4px; }
+  .hbar { display: grid; grid-template-columns: minmax(0, 150px) 1fr auto; gap: 12px; align-items: center; margin: 10px 0; font-size: 13px; }
+  .hbar .name { display: flex; align-items: center; gap: 8px; min-width: 0; }
+  .hbar .name span:last-child { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .hbar .track { height: 8px; border-radius: 4px; background: var(--container-high); overflow: hidden; }
+  .hbar .track span { display: block; height: 100%; border-radius: 4px; }
+  .hbar .val { color: var(--text-2); font-variant-numeric: tabular-nums; }
+  .split { display: flex; height: 28px; border-radius: 8px; overflow: hidden; background: var(--container-high); }
+  .split span { display: block; height: 100%; }
+  .legend { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 10px; font-size: 12px; color: var(--text-2); }
+  .legend span { display: inline-flex; align-items: center; gap: 6px; }
+
+  /* --- Hinweise & Anleitung --- */
+  .hint-link {
+    display: inline-flex; align-items: center; gap: 6px; border: 0; background: transparent; padding: 2px 0; margin-top: 6px;
+    color: var(--text-3); font: inherit; font-size: 12.5px; cursor: pointer; text-align: left;
+  }
+  .hint-link .icon { font-size: 16px; }
+  .hint-link:hover { color: var(--primary); }
+  .hint-link:hover span:last-child { text-decoration: underline; text-underline-offset: 3px; }
+  h2 .hint-link { margin: 0 0 0 4px; font-weight: 400; }
+  .focus-main .hint-link { margin-top: 20px; }
+  dialog.guide { overflow-y: auto; }
+  .guide-top {
+    position: sticky; top: 0; z-index: 2; display: flex; align-items: center; gap: 12px;
+    padding: max(12px, env(safe-area-inset-top)) 24px 12px; background: color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  }
+  .guide-top .label { margin-left: auto; font-size: 12px; letter-spacing: 1.2px; text-transform: uppercase; color: var(--text-2); }
+  .guide-wrap { max-width: 760px; margin: 0 auto; padding: 8px 24px 72px; }
+  .guide-wrap .num { font-size: 12px; color: var(--primary); letter-spacing: 1.6px; text-transform: uppercase; font-weight: 500; }
+  .guide-hero { padding: 24px 0 40px; }
+  .guide-hero h1 { font-size: clamp(32px, 6vw, 46px); font-weight: 400; letter-spacing: -.8px; line-height: 1.12; margin: 10px 0 16px; }
+  .guide-hero > p { font-size: 17px; line-height: 1.6; color: var(--text-2); margin: 0; max-width: 620px; }
+  .flow { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; margin: 28px 0 0; }
+  .flow .arrow { color: var(--text-3); font-size: 18px; }
+  .flow-step {
+    height: 40px; padding: 0 16px 0 12px; border-radius: 20px; border: 0; background: var(--surface); color: var(--text);
+    display: inline-flex; align-items: center; gap: 8px; font-weight: 500; cursor: pointer; box-shadow: 0 1px 2px rgba(0,0,0,.06);
+  }
+  .flow-step .icon { color: var(--primary); }
+  .flow-step:hover { box-shadow: var(--shadow); }
+  .toc { display: grid; grid-template-columns: 1fr 1fr; gap: 2px 24px; margin-top: 32px; }
+  .toc button {
+    display: flex; align-items: baseline; gap: 12px; padding: 8px 0; border: 0; border-bottom: 1px solid var(--divider);
+    background: transparent; color: var(--text); font: inherit; font-size: 15px; text-align: left; cursor: pointer;
+  }
+  .toc button:hover { color: var(--primary); }
+  .toc .n { color: var(--text-3); font-variant-numeric: tabular-nums; width: 14px; }
+  .principle { padding: 44px 0; border-top: 1px solid var(--divider); scroll-margin-top: 64px; }
+  .principle h2 { font-size: 30px; font-weight: 400; letter-spacing: -.3px; margin: 8px 0 6px; line-height: 1.2; }
+  .principle .essence { font-size: 19px; color: var(--text-2); margin: 0 0 20px; line-height: 1.45; }
+  .principle > p { font-size: 15.5px; line-height: 1.7; margin: 0 0 14px; }
+  .compare { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 24px 0 0; }
+  .compare > div { background: var(--surface); border-radius: 16px; padding: 16px 18px; }
+  .compare .k { font-size: 11px; letter-spacing: 1.2px; text-transform: uppercase; font-weight: 500; color: var(--text-3); display: flex; align-items: center; gap: 4px; }
+  .compare .k .icon { font-size: 15px; }
+  .compare p { margin: 8px 0 0; font-size: 15px; line-height: 1.5; }
+  .compare .worse p { color: var(--text-2); }
+  .compare .better { box-shadow: inset 0 0 0 1.5px var(--primary); }
+  .compare .better .k { color: var(--primary); }
+  .ladder { list-style: none; margin: 24px 0 0; padding: 18px 20px; background: var(--surface); border-radius: 16px; }
+  .ladder li { display: grid; grid-template-columns: 92px 1fr; gap: 16px; }
+  .ladder .lvl { font-size: 11px; letter-spacing: 1.2px; text-transform: uppercase; color: var(--text-3); text-align: right; padding: 9px 0; }
+  .ladder .what { position: relative; padding: 6px 0 6px 20px; border-left: 2px solid var(--divider); font-size: 15px; line-height: 1.45; }
+  .ladder .what::before {
+    content: ""; position: absolute; left: -7px; top: 11px; width: 8px; height: 8px; border-radius: 50%;
+    background: var(--surface); border: 2px solid var(--outline);
+  }
+  .ladder li:first-child .what { border-image: linear-gradient(transparent 0 12px, var(--divider) 12px) 1; }
+  .ladder li:last-child .what { border-image: linear-gradient(var(--divider) 0 12px, transparent 12px) 1; }
+  .ladder .quest .lvl { color: var(--primary); font-weight: 500; }
+  .ladder .quest .what { font-weight: 500; }
+  .ladder .quest .what::before { background: var(--primary); border-color: var(--primary); }
+  .questions { list-style: none; counter-reset: q; margin: 24px 0 0; padding: 0; display: grid; gap: 10px; }
+  .questions li {
+    counter-increment: q; display: flex; gap: 14px; align-items: baseline; background: var(--surface);
+    border-radius: 14px; padding: 14px 18px; font-size: 15px; line-height: 1.45;
+  }
+  .questions li::before { content: counter(q); color: var(--primary); font-weight: 500; font-variant-numeric: tabular-nums; }
+  .in-app {
+    display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 24px; padding-top: 16px;
+    border-top: 1px dashed var(--divider); color: var(--text-2); font-size: 14px; line-height: 1.5;
+  }
+  .in-app > span:nth-child(2) { flex: 1; min-width: 220px; }
+  .in-app > .icon { color: var(--primary); }
+  .in-app .btn { height: 36px; padding: 0 12px 0 16px; }
+  .in-app .btn .icon { font-size: 18px; }
+  .recipe { margin-top: 12px; background: var(--primary-container); color: var(--on-primary-container); border-radius: 28px; padding: 28px 28px 24px; }
+  .recipe .num { color: inherit; opacity: .8; }
+  .recipe h2 { font-size: 28px; font-weight: 400; margin: 6px 0 14px; }
+  .recipe ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+  .recipe li { display: flex; gap: 12px; align-items: flex-start; font-size: 15.5px; line-height: 1.45; }
+  .recipe li .icon { font-size: 20px; margin-top: 1px; }
+  .guide-foot { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; margin-top: 28px; color: var(--text-3); font-size: 13px; }
+  .switch { display: inline-flex; align-items: center; gap: 10px; cursor: pointer; color: var(--text-2); }
+  .switch input { position: absolute; opacity: 0; pointer-events: none; }
+  .switch > span { width: 36px; height: 20px; border-radius: 10px; background: var(--outline); position: relative; transition: background .2s; flex-shrink: 0; }
+  .switch > span::after { content: ""; position: absolute; left: 3px; top: 3px; width: 14px; height: 14px; border-radius: 50%; background: var(--surface); transition: transform .2s; }
+  .switch input:checked + span { background: var(--primary); }
+  .switch input:checked + span::after { transform: translateX(16px); }
+  .switch input:focus-visible + span { outline: 2px solid var(--primary); outline-offset: 2px; }
+
+  /* --- Neue Aufgabe & Einstellungen --- */
+  .new-btn {
+    height: 40px; padding: 0 18px 0 12px; border-radius: 20px; border: 0; cursor: pointer; flex-shrink: 0;
+    background: var(--primary-container); color: var(--on-primary-container); font-weight: 500;
+    display: inline-flex; align-items: center; gap: 6px;
+  }
+  .new-btn:hover { box-shadow: 0 1px 3px rgba(0,0,0,.25); }
+  .fab {
+    display: none; position: fixed; right: max(16px, env(safe-area-inset-right)); bottom: max(20px, env(safe-area-inset-bottom));
+    z-index: 50; width: 56px; height: 56px; border-radius: 16px; border: 0; cursor: pointer;
+    background: var(--primary-container); color: var(--on-primary-container); box-shadow: 0 3px 10px rgba(0,0,0,.25);
+    place-items: center;
+  }
+  .fab .icon { font-size: 26px; }
+  .composer .compose-input { min-height: 140px; margin-top: 16px; font-size: 15px; line-height: 1.5; }
+  .examples { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+  .examples .chip { flex-shrink: 1; max-width: 100%; height: auto; min-height: 30px; padding: 5px 10px; white-space: normal; text-align: left; font-weight: 400; font-size: 12.5px; line-height: 1.35; }
+  .agent-meta { display: flex; align-items: center; gap: 8px; margin-top: 14px; color: var(--text-2); font-size: 13px; flex-wrap: wrap; }
+  .agent-meta .icon { font-size: 18px; color: var(--primary); }
+  .agent-meta span:nth-child(2) { flex: 1; min-width: 200px; }
+  .agent-reply { display: flex; gap: 10px; align-items: flex-start; margin: 14px 0 16px; font-size: 15px; line-height: 1.5; }
+  .agent-reply .icon { color: var(--primary); font-size: 20px; margin-top: 1px; }
+  .created .row { cursor: pointer; }
+  .spinner {
+    width: 16px; height: 16px; border-radius: 50%; border: 2px solid currentColor; border-right-color: transparent;
+    display: inline-block; animation: spin .8s linear infinite; flex-shrink: 0;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .btn:disabled { opacity: .6; cursor: default; }
+  .settings .set-section { padding: 20px 0 4px; border-top: 1px solid var(--divider); margin-top: 16px; }
+  .settings .set-section:first-of-type { border-top: 0; margin-top: 4px; padding-top: 8px; }
+  .settings h4 { font-size: 15px; font-weight: 500; margin: 0 0 4px; display: flex; align-items: center; gap: 10px; }
+  .settings h4 .icon { color: var(--primary); }
+  .settings .f .lbl { width: 78px; }
+  .settings .dlg-actions { margin-top: 12px; }
+  .set-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-top: 8px; }
+  .set-status { display: flex; align-items: center; gap: 8px; min-height: 22px; margin-top: 6px; font-size: 13px; color: var(--text-2); }
+  .set-status .icon { font-size: 18px; color: #1e8e3e; }
+  .set-status.bad, .set-status.bad .icon { color: var(--danger); }
+  .fine { font-size: 12px; color: var(--text-3); margin: 8px 0 0; line-height: 1.5; }
+  .steps { margin: 10px 0 0; padding-left: 20px; color: var(--text-2); font-size: 13px; line-height: 1.6; }
+  .steps code { font-size: 12px; background: var(--container-high); padding: 1px 5px; border-radius: 4px; }
+  a.btn { text-decoration: none; color: var(--text); }
+
+  /* --- Sicherheit --- */
+  .tfa-steps { margin: 16px 0 0; padding-left: 20px; display: grid; gap: 18px; }
+  .tfa-steps li::marker { color: var(--primary); font-weight: 500; }
+  .tfa-steps .muted { margin-top: 6px; }
+  .qr { margin: 12px 0 8px; display: inline-block; border-radius: 12px; overflow: hidden; line-height: 0; box-shadow: 0 0 0 1px var(--divider); }
+  .qr svg { width: 200px; height: 200px; }
+  .secret { font-size: 13px; letter-spacing: .5px; background: var(--container-high); padding: 2px 6px; border-radius: 6px; word-break: break-all; }
+  .warn {
+    display: flex; gap: 12px; margin-top: 18px; padding: 14px 16px; border-radius: 12px; background: var(--container);
+    color: var(--text-2); font-size: 13px; line-height: 1.55;
+  }
+  .warn .icon { color: var(--primary); font-size: 20px; flex-shrink: 0; }
+  .warn code { font-size: 12px; background: var(--container-high); padding: 1px 5px; border-radius: 4px; word-break: break-all; }
+  .codes { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 16px; }
+  .codes code { font-size: 15px; letter-spacing: 1px; text-align: center; padding: 10px; border-radius: 10px; background: var(--container); }
+
+  /* --- Formularergänzungen --- */
+  .f .lbl { width: 64px; flex-shrink: 0; font-size: 13px; }
+  .f select {
+    flex: 1; min-width: 0; border: 0; background: transparent; color: var(--text); font: inherit; font-size: 15px;
+    padding: 9px 6px; border-radius: 8px; outline: none; cursor: pointer;
+  }
+  .f select:hover, .f select:focus { background: var(--field); }
+  .f select option { background: var(--surface); color: var(--text); }
+
+  @media (max-width: 760px) {
+    .dlg { padding: 20px 16px; }
+    .seg-status label > span .icon { display: none; }
+    .seg-status { display: grid; grid-template-columns: 1fr 1fr; border-radius: 12px; }
+    .seg-status label:nth-child(odd) > span { border-left: 0; }
+    .seg-status label:nth-child(n + 3) > span { border-top: 1px solid var(--outline); }
+    .brand span { display: none; }
+    .toolbar { gap: 8px; }
+    .segmented button { padding: 0 12px; }
+    .segmented .label { display: none; }
+    .board { grid-template-columns: repeat(4, 85vw); overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 8px; margin: 8px -16px 0; padding-left: 16px; padding-right: 16px; scroll-padding: 16px; }
+    .column { scroll-snap-align: start; }
+    .day { min-height: 56px; align-items: center; }
+    .day .pill, .day .more { display: none; }
+    .dots { display: flex; }
+    .cal-head h2 { font-size: 18px; margin-left: 4px; }
+    .run-pill { padding: 0 10px; }
+    .run-pill .what { display: none; }
+    .page-head h1 { font-size: 24px; }
+    .today { grid-template-columns: 1fr; }
+    .timeline-card { position: static; }
+    .tl-scroll { max-height: 420px; --hour: 40px; }
+    .today-stats { gap: 16px; width: 100%; justify-content: space-between; }
+    .stat-inline { text-align: left; }
+    .plan { scroll-snap-type: x mandatory; margin: 0 -16px; padding: 0 16px 12px; scroll-padding: 16px; }
+    .plan .column, .plan .backlog { flex-basis: 82vw; scroll-snap-align: start; }
+    .plan .backlog { position: static; box-shadow: none; }
+    .review-grid { grid-template-columns: 1fr; }
+    .tiles { grid-template-columns: 1fr 1fr; }
+    .tile .v { font-size: 24px; }
+    .tl-head > div { font-size: 10px; padding: 6px 0; }
+    .tl-head b { font-size: 11px; }
+    .tl, .tl-head { grid-template-columns: 40px repeat(var(--days), minmax(0, 1fr)); }
+    .week-card .block { font-size: 0; padding: 0; }
+    .focus-title { font-size: 21px; }
+    .hbar { grid-template-columns: minmax(0, 110px) 1fr auto; }
+    .compare, .toc { grid-template-columns: 1fr; }
+    .new-btn { display: none; }
+    .composer .dlg-actions .btn.text[data-close] { display: none; }
+    .fab { display: grid; }
+    .snack { bottom: max(88px, calc(env(safe-area-inset-bottom) + 72px)); }
+    main { padding-bottom: 96px; }
+    .week-nav { width: 100%; }
+    .week-nav .range { flex: 1; min-width: 0; margin: 0; text-align: center; overflow: hidden; text-overflow: ellipsis; }
+    .weeks .bar-val, .weeks + .chart-labels span:nth-child(even) { visibility: hidden; }
+    .ladder li { grid-template-columns: 72px 1fr; gap: 12px; }
+    .guide-wrap, .guide-top { padding-left: 16px; padding-right: 16px; }
+    .principle h2 { font-size: 25px; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="bar">
+    <div class="brand">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="var(--primary)"/><path d="M7 12.5l3.2 3.2L17 9" stroke="var(--on-primary)" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span>Aufgaben</span>
+    </div>
+    <label class="search">
+      <span class="icon">search</span>
+      <input id="q" type="search" placeholder="Suchen" autocomplete="off">
+    </label>
+    <span class="sync" id="sync" title="Live"></span>
+    <button class="run-pill" id="run-pill" title="Fokus"></button>
+    <button class="new-btn" data-compose title="Neue Aufgabe (N)"><span class="icon">add</span><span>Neue Aufgabe</span></button>
+    <button class="icon-btn" data-guide="" title="Prinzipien & Anleitung (?)" aria-label="Prinzipien & Anleitung"><span class="icon">auto_stories</span></button>
+    <button class="icon-btn" data-settings="" title="Einstellungen" aria-label="Einstellungen"><span class="icon">settings</span></button>
+  </div>
+  <div class="toolbar">
+    <div class="segmented" role="group" aria-label="Ansicht">
+      <button data-view="today" title="Heute"><span class="icon">wb_sunny</span><span class="label">Heute</span></button>
+      <button data-view="plan" title="Planen"><span class="icon">view_week</span><span class="label">Planen</span></button>
+      <button data-view="list" title="Liste"><span class="icon">checklist</span><span class="label">Liste</span></button>
+      <button data-view="board" title="Board"><span class="icon">view_kanban</span><span class="label">Board</span></button>
+      <button data-view="calendar" title="Kalender"><span class="icon">calendar_month</span><span class="label">Kalender</span></button>
+      <button data-view="quests" title="Quests"><span class="icon">rocket_launch</span><span class="label">Quests</span></button>
+      <button data-view="review" title="Rückblick"><span class="icon">insights</span><span class="label">Rückblick</span></button>
+    </div>
+    <div class="chips" id="chips"></div>
+  </div>
+</header>
+<main id="main"></main>
+<button class="fab" data-compose aria-label="Neue Aufgabe"><span class="icon">add</span></button>
+
+<dialog id="dlg"><div id="dlg-body"></div></dialog>
+<dialog id="focus" class="focus" aria-label="Fokus"><div id="focus-body"></div></dialog>
+<dialog id="guide" class="focus guide" aria-label="Prinzipien"><div id="guide-body"></div></dialog>
+<div class="snack" id="snack" role="status" aria-live="polite"></div>
+<datalist id="project-list"></datalist>
+
+<script>
+"use strict";
+
+const STATUS = {
+  todo: { label: "Offen", icon: "radio_button_unchecked" },
+  doing: { label: "In Arbeit", icon: "timelapse" },
+  deferred: { label: "Zurückgestellt", icon: "pause_circle" },
+  done: { label: "Erledigt", icon: "check_circle" },
+};
+const isOpen = (t) => t.status === "todo" || t.status === "doing";
+const PRIO = { high: "Hoch", medium: "Mittel", low: "Niedrig" };
+const PRIO_RANK = { high: 0, medium: 1, low: 2 };
+const HUES = ["#1a73e8", "#1e8e3e", "#d93025", "#f9ab00", "#9334e6", "#12b5cb", "#e52592", "#e8710a"];
+const MONTHS = ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"];
+const WD_SHORT = ["Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"];
+const WD_LONG = ["Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"];
+const QUEST_COLORS = ["#d93025", "#1a73e8", "#1e8e3e", "#9334e6", "#e8710a", "#12b5cb", "#e52592", "#f9ab00"];
+const VIEWS = ["today", "plan", "list", "board", "calendar", "quests", "review"];
+
+const state = {
+  tasks: [], quests: [], sessions: [], settings: { weekly_target_hours: 20 },
+  today: null, etag: null, clockOffset: 0,
+  view: "today", project: null, query: "",
+  calMonth: null, calSelected: null, calMode: "month", calWeek: null, pending: 0,
+  planWeek: null, reviewWeek: null, questTab: "active", focusTask: null, scroll: {},
+};
+
+const store = {
+  get(k) { try { return localStorage.getItem(k); } catch { return null; } },
+  set(k, v) { try { localStorage.setItem(k, v); } catch {} },
+};
+
+// --- Hilfen ---------------------------------------------------------------
+
+const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const linkify = (s) => esc(s).replace(/https?:\/\/[^\s<]+/g, (u) => `<a href="${u}" target="_blank" rel="noopener">${u}</a>`);
+const parseDate = (iso) => { const [y, m, d] = iso.split("-").map(Number); return new Date(y, m - 1, d); };
+const isoDate = (d) => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+const addDays = (iso, n) => { const d = parseDate(iso); d.setDate(d.getDate() + n); return isoDate(d); };
+const daysBetween = (a, b) => Math.round((parseDate(b) - parseDate(a)) / 86400000);
+const mondayOf = (iso) => addDays(iso, -((parseDate(iso).getDay() + 6) % 7));
+const weekdayIdx = (iso) => (parseDate(iso).getDay() + 6) % 7;
+const localDay = (stampIso) => isoDate(new Date(stampIso));
+const pad2 = (n) => String(n).padStart(2, "0");
+const hhmm = (ms) => { const d = new Date(ms); return `${pad2(d.getHours())}:${pad2(d.getMinutes())}`; };
+
+function relDay(iso) {
+  const diff = daysBetween(state.today, iso);
+  if (diff === 0) return "heute";
+  if (diff === 1) return "morgen";
+  if (diff === -1) return "gestern";
+  if (Math.abs(diff) < 7) return WD_LONG[weekdayIdx(iso)];
+  const d = parseDate(iso);
+  return `${d.getDate()}. ${MONTHS[d.getMonth()].slice(0, 3)}.`;
+}
+
+function weekRange(monday) {
+  const a = parseDate(monday), b = parseDate(addDays(monday, 6));
+  if (a.getMonth() === b.getMonth()) return `${a.getDate()}.–${b.getDate()}. ${MONTHS[b.getMonth()]} ${b.getFullYear()}`;
+  return `${a.getDate()}. ${MONTHS[a.getMonth()].slice(0, 3)}. – ${b.getDate()}. ${MONTHS[b.getMonth()].slice(0, 3)}. ${b.getFullYear()}`;
+}
+
+// --- Erfasste Zeit ----------------------------------------------------------
+
+const now = () => Date.now() + state.clockOffset; // Serverzeit, damit der Timer auf allen Geräten gleich läuft
+const running = () => state.sessions.find((s) => !s.ended_at);
+const sessStart = (s) => Date.parse(s.started_at);
+const sessEnd = (s) => (s.ended_at ? Date.parse(s.ended_at) : now());
+const sessSecs = (s) => Math.max(0, (sessEnd(s) - sessStart(s)) / 1000);
+const sessDay = (s) => localDay(s.started_at);
+const sumSecs = (list) => list.reduce((a, s) => a + sessSecs(s), 0);
+const taskById = (id) => state.tasks.find((t) => t.id === id);
+const questById = (id) => (id ? state.quests.find((q) => q.id === id) : undefined);
+const questOfSession = (s) => questById(taskById(s.task_id)?.quest_id);
+const taskSecs = (id, day) => sumSecs(state.sessions.filter((s) => s.task_id === id && (!day || sessDay(s) === day)));
+const daySessions = (day) => state.sessions.filter((s) => sessDay(s) === day);
+const weekSessions = (monday) => { const end = addDays(monday, 6); return state.sessions.filter((s) => { const d = sessDay(s); return d >= monday && d <= end; }); };
+
+function fmtDur(sec) {
+  const m = Math.floor(sec / 60);
+  if (m < 1) return sec >= 1 ? "<1 min" : "0 min";
+  return m < 60 ? `${m} min` : `${Math.floor(m / 60)}:${pad2(m % 60)} h`;
+}
+const fmtHours = (sec) => sec < 3600 ? fmtDur(sec) : `${(sec / 3600).toLocaleString("de-DE", { maximumFractionDigits: 1 })} h`;
+function fmtClock(sec) {
+  sec = Math.floor(sec);
+  const h = Math.floor(sec / 3600), m = Math.floor((sec % 3600) / 60), s = sec % 60;
+  return h ? `${h}:${pad2(m)}:${pad2(s)}` : `${m}:${pad2(s)}`;
+}
+
+/** Tag im Plan; offene Aufgaben aus vergangenen Tagen rutschen auf heute. */
+const plannedFor = (t) => (isOpen(t) && t.plan_date && t.plan_date < state.today ? state.today : t.plan_date);
+
+// Farben nach alphabetischer Reihenfolge vergeben, damit sich Projekte nicht dieselbe Farbe teilen
+let projectColors = {};
+const allProjects = () => [...new Set(state.tasks.map((t) => t.project).filter(Boolean))].sort((a, b) => a.localeCompare(b, "de"));
+const projectColor = (name) => projectColors[name] || HUES[0];
+
+function dueLabel(task) {
+  if (!task.due_date) return null;
+  const diff = daysBetween(state.today, task.due_date);
+  const d = parseDate(task.due_date);
+  let text;
+  if (diff === 0) text = "Heute";
+  else if (diff === 1) text = "Morgen";
+  else if (diff === -1) text = "Gestern";
+  else if (diff > 1 && diff < 7) text = WD_SHORT[(d.getDay() + 6) % 7] + ".";
+  else {
+    text = `${d.getDate()}. ${MONTHS[d.getMonth()].slice(0, 3)}.`;
+    if (d.getFullYear() !== parseDate(state.today).getFullYear()) text += ` ${d.getFullYear()}`;
+  }
+  if (task.due_time) text += `, ${task.due_time}`;
+  const cls = isOpen(task) && diff < 0 ? "due-overdue" : diff === 0 ? "due-today" : "";
+  return { text, cls };
+}
+
+function longDate(iso) {
+  const d = parseDate(iso);
+  return `${["Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag"][d.getDay()]}, ${d.getDate()}. ${MONTHS[d.getMonth()]} ${d.getFullYear()}`;
+}
+
+function stamp(iso) {
+  if (!iso) return "";
+  const d = new Date(iso);
+  return d.toLocaleString("de-DE", { day: "numeric", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit" });
+}
+
+function sortTasks(list) {
+  return [...list].sort((a, b) =>
+    (a.due_date || "9999").localeCompare(b.due_date || "9999") ||
+    (a.due_time || "99").localeCompare(b.due_time || "99") ||
+    (PRIO_RANK[a.priority] ?? 3) - (PRIO_RANK[b.priority] ?? 3) ||
+    a.id - b.id);
+}
+
+function visibleTasks() {
+  const q = state.query.trim().toLowerCase();
+  return state.tasks.filter((t) =>
+    (!state.project || t.project === state.project) &&
+    (!q || t.title.toLowerCase().includes(q) || t.notes.toLowerCase().includes(q) ||
+      t.tags.some((x) => x.toLowerCase().includes(q)) || (t.project || "").toLowerCase().includes(q)));
+}
+
+// --- Bausteine ------------------------------------------------------------
+
+const questTag = (q) => `<span class="tag quest"><span class="icon fill" style="color:${q.color}">rocket_launch</span><span class="tx">${esc(q.title)}</span></span>`;
+
+function metaChips(t, { project = true, plan = true, quest = true } = {}) {
+  const out = [];
+  const q = questById(t.quest_id);
+  if (quest && q) out.push(questTag(q));
+  const due = dueLabel(t);
+  if (due) out.push(`<span class="tag ${due.cls}"><span class="icon">event</span>${esc(due.text)}</span>`);
+  if (plan && isOpen(t) && t.plan_date) {
+    const day = plannedFor(t);
+    out.push(`<span class="tag ${day === state.today ? "due-today" : ""}" title="Eingeplant"><span class="icon">event_available</span>${esc(relDay(day))}</span>`);
+  }
+  if (project && t.project) out.push(`<span class="tag"><span class="dot" style="background:${projectColor(t.project)}"></span>${esc(t.project)}</span>`);
+  for (const tag of t.tags) out.push(`<span class="tag">#${esc(tag)}</span>`);
+  return out.join("");
+}
+
+const prioIcon = (t) => t.priority && t.status !== "done"
+  ? `<span class="icon fill prio ${t.priority}" title="Priorität: ${PRIO[t.priority]}">flag</span>` : "";
+
+function statusBtn(t) {
+  const label = t.status === "done" ? "Wieder öffnen" : "Als erledigt markieren";
+  return `<button class="status-btn" data-toggle="${t.id}" title="${label}" aria-label="${label}">
+    <span class="icon status ${t.status} ${t.status === "done" ? "fill" : ""}">${STATUS[t.status].icon}</span></button>`;
+}
+
+function row(t) {
+  const drag = state.view === "calendar" ? `data-drag="${t.id}"` : "";
+  return `<div class="row ${t.status}-task" data-id="${t.id}" ${drag} role="button" tabindex="0">
+    ${statusBtn(t)}
+    <span class="row-main">
+      <div class="title">${esc(t.title)}</div>
+      ${t.notes ? `<div class="notes">${esc(t.notes)}</div>` : ""}
+      <div class="meta">${metaChips(t, { project: !state.project })}</div>
+    </span>
+    ${prioIcon(t)}
+  </div>`;
+}
+
+function card(t) {
+  const border = t.project ? `style="border-left-color:${projectColor(t.project)}"` : "";
+  return `<div class="card ${t.status}-task" data-id="${t.id}" data-drag="${t.id}" ${border} role="button" tabindex="0">
+    <div class="top"><div class="title">${esc(t.title)}</div>${prioIcon(t)}</div>
+    ${t.notes ? `<div class="notes">${esc(t.notes)}</div>` : ""}
+    <div class="meta">${metaChips(t, { project: !state.project })}</div>
+  </div>`;
+}
+
+function group(title, list, cls = "") {
+  if (!list.length) return "";
+  return `<section class="group ${cls}"><h2>${title}<span class="count">${list.length}</span></h2>
+    <div class="panel">${list.map(row).join("")}</div></section>`;
+}
+
+function emptyState() {
+  const filtered = state.query || state.project;
+  return `<div class="empty"><span class="icon">${filtered ? "search_off" : "task_alt"}</span>
+    <h3>${filtered ? "Nichts gefunden" : "Alles erledigt"}</h3>
+    <p>${filtered ? "Kein Eintrag passt zu deinem Filter." : "Neue Aufgaben legst du über Claude an, zum Beispiel: „Schreib auf: Steuererklärung bis Freitag.“"}</p></div>`;
+}
+
+// --- Ansichten ------------------------------------------------------------
+
+function renderList(tasks) {
+  const open = sortTasks(tasks.filter(isOpen));
+  const deferred = sortTasks(tasks.filter((t) => t.status === "deferred"));
+  const done = tasks.filter((t) => t.status === "done")
+    .sort((a, b) => (b.completed_at || "").localeCompare(a.completed_at || ""));
+  if (!open.length && !deferred.length && !done.length) return `<div class="wrap">${emptyState()}</div>`;
+  const today = state.today, tomorrow = addDays(today, 1), week = addDays(today, 7);
+  const by = (fn) => open.filter(fn);
+  let html = "";
+  html += group("Überfällig", by((t) => t.due_date && t.due_date < today), "overdue");
+  html += group("Heute", by((t) => t.due_date === today));
+  html += group("Morgen", by((t) => t.due_date === tomorrow));
+  html += group("Nächste 7 Tage", by((t) => t.due_date > tomorrow && t.due_date <= week));
+  html += group("Später", by((t) => t.due_date > week));
+  html += group("Ohne Datum", by((t) => !t.due_date));
+  if (!open.length) html += emptyState();
+  html += foldGroup("Zurückgestellt", deferred);
+  html += foldGroup("Erledigt", done.slice(0, 50), done.length);
+  return `<div class="wrap">${html}</div>`;
+}
+
+function foldGroup(title, list, total = list.length) {
+  if (!list.length) return "";
+  return `<details class="group fold-group"><summary><span class="icon">chevron_right</span>${title}
+    <span class="count" style="color:var(--text-3);font-weight:400">${total}</span></summary>
+    <div class="panel">${list.map(row).join("")}</div></details>`;
+}
+
+function renderBoard(tasks) {
+  const cols = Object.keys(STATUS).map((status) => {
+    let list = tasks.filter((t) => t.status === status);
+    list = status === "done"
+      ? list.sort((a, b) => (b.completed_at || "").localeCompare(a.completed_at || "")).slice(0, 30)
+      : sortTasks(list);
+    const total = tasks.filter((t) => t.status === status).length;
+    const s = STATUS[status];
+    return `<section class="column" data-drop-status="${status}"><h2><span class="icon status ${status} ${status === "done" ? "fill" : ""}">${s.icon}</span>${s.label}
+      <span class="count">${total}</span></h2>
+      ${list.map(card).join("") || `<div class="empty-col">Keine Aufgaben</div>`}</section>`;
+  });
+  return `<div class="board">${cols.join("")}</div>`;
+}
+
+function renderCalendar(tasks) {
+  if (state.calMode === "week") return renderCalWeek();
+  if (!state.calMonth) state.calMonth = state.today.slice(0, 7);
+  if (!state.calSelected) state.calSelected = state.today;
+  const [y, m] = state.calMonth.split("-").map(Number);
+  const first = new Date(y, m - 1, 1);
+  const start = new Date(first);
+  start.setDate(1 - ((first.getDay() + 6) % 7));
+  const byDay = {};
+  for (const t of sortTasks(tasks)) if (t.due_date) (byDay[t.due_date] ||= []).push(t);
+
+  let cells = WD_SHORT.map((d) => `<div class="weekday">${d}</div>`).join("");
+  const weeks = Math.ceil((((first.getDay() + 6) % 7) + new Date(y, m, 0).getDate()) / 7);
+  for (let i = 0; i < weeks * 7; i++) {
+    const d = new Date(start); d.setDate(start.getDate() + i);
+    const iso = isoDate(d);
+    const list = byDay[iso] || [];
+    const cls = ["day", d.getMonth() !== m - 1 && "other", iso === state.today && "today", iso === state.calSelected && "selected"].filter(Boolean).join(" ");
+    const pills = list.slice(0, 3).map((t) => `<div class="pill ${t.status}" data-id="${t.id}" data-drag="${t.id}"
+      style="border-left-color:${t.project ? projectColor(t.project) : "var(--text-3)"}">${t.due_time ? esc(t.due_time) + " " : ""}${esc(t.title)}</div>`).join("");
+    const more = list.length > 3 ? `<div class="more">+${list.length - 3} weitere</div>` : "";
+    const dots = list.slice(0, 4).map((t) => `<span class="dot" style="background:${!isOpen(t) ? "var(--outline)" : t.project ? projectColor(t.project) : "var(--primary)"}"></span>`).join("");
+    cells += `<button class="${cls}" data-day="${iso}"><span class="day-num">${d.getDate()}</span>${pills}${more}<span class="dots">${dots}</span></button>`;
+  }
+
+  const sel = byDay[state.calSelected] || [];
+  const noDate = sortTasks(tasks.filter((t) => !t.due_date && isOpen(t)));
+  return `<div class="cal">
+    <div class="cal-head">
+      <button class="outlined-btn" data-cal="today">Heute</button>
+      <button class="icon-btn" data-cal="prev" aria-label="Vorheriger Monat"><span class="icon">chevron_left</span></button>
+      <button class="icon-btn" data-cal="next" aria-label="Nächster Monat"><span class="icon">chevron_right</span></button>
+      <h2>${MONTHS[m - 1]} ${y}</h2>
+      <span style="flex:1"></span>
+      ${calModeToggle()}
+    </div>
+    <div class="grid">${cells}</div>
+    <div class="day-detail wrap">${sel.length ? group(esc(longDate(state.calSelected)), sel)
+      : `<section class="group"><h2>${esc(longDate(state.calSelected))}</h2><div class="panel"><div class="row" style="cursor:default;color:var(--text-3)">Keine Aufgaben an diesem Tag</div></div></section>`}</div>
+    <div class="no-date wrap">${group("Ohne Datum", noDate)}</div>
+  </div>`;
+}
+
+// --- Heute ----------------------------------------------------------------
+
+function todayRow(t, { suggest = false } = {}) {
+  const run = running();
+  const isRun = run?.task_id === t.id;
+  const secs = taskSecs(t.id);
+  const carried = isOpen(t) && t.plan_date && t.plan_date < state.today;
+  const extra = carried ? `<span class="tag carried" title="Liegengeblieben"><span class="icon">history</span>seit ${esc(relDay(t.plan_date))}</span>` : "";
+  const action = suggest
+    ? `<button class="plan-btn" data-plan-today="${t.id}" title="Für heute einplanen"><span class="icon">add</span>Heute</button>`
+    : isOpen(t)
+      ? `<button class="icon-btn play" data-play="${t.id}" title="${isRun ? "Pausieren" : "Timer starten"}" aria-label="${isRun ? "Pausieren" : "Timer starten"}"><span class="icon fill">${isRun ? "pause" : "play_arrow"}</span></button>`
+      : "";
+  return `<div class="row ${t.status}-task ${isRun ? "running" : ""}" data-id="${t.id}" role="button" tabindex="0">
+    ${statusBtn(t)}
+    <span class="row-main">
+      <div class="title">${esc(t.title)}</div>
+      <div class="meta">${extra}${metaChips(t, { project: !state.project, plan: suggest })}</div>
+    </span>
+    <span class="side">
+      <span class="tracked" data-live-task="${t.id}">${isRun ? fmtClock(secs) : secs ? fmtDur(secs) : ""}</span>
+      ${prioIcon(t)}${action}
+    </span>
+  </div>`;
+}
+
+function todaySection(title, list, { icon = "", empty = "", note = "" } = {}) {
+  if (!list.length && !empty) return "";
+  const secs = list.reduce((a, t) => a + taskSecs(t.id, state.today), 0);
+  return `<section class="group"><h2>${icon}${title}<span class="count">${list.length}</span>${note}
+      ${secs ? `<span class="aside">${fmtDur(secs)} heute</span>` : ""}</h2>
+    <div class="panel">${list.map((t) => todayRow(t)).join("") || empty}</div></section>`;
+}
+
+function weekQuestSecs(monday) {
+  return sumSecs(weekSessions(monday).filter((s) => questOfSession(s)));
+}
+
+function renderToday(tasks) {
+  const today = state.today;
+  const planned = tasks.filter((t) => plannedFor(t) === today && t.status !== "deferred");
+  const open = sortTasks(planned.filter(isOpen));
+  const questWork = open.filter((t) => questById(t.quest_id));
+  const other = open.filter((t) => !questById(t.quest_id));
+  const done = tasks.filter((t) => t.status === "done" && (t.plan_date === today || (t.completed_at && localDay(t.completed_at) === today)))
+    .sort((a, b) => (b.completed_at || "").localeCompare(a.completed_at || ""));
+  const suggestions = sortTasks(tasks.filter((t) => isOpen(t) && plannedFor(t) !== today &&
+    (t.status === "doing" || (t.due_date && t.due_date <= addDays(today, 1)))));
+
+  const daySecs = sumSecs(daySessions(today));
+  const target = state.settings.weekly_target_hours;
+  const weekSecs = weekQuestSecs(mondayOf(today));
+  const pct = Math.min(100, (100 * weekSecs) / (target * 3600));
+  const d = parseDate(today);
+  const head = `<div class="page-head">
+    <div><h1>${WD_LONG[weekdayIdx(today)]}, ${d.getDate()}. ${MONTHS[d.getMonth()]}</h1>
+      <p class="sub">${open.length ? `${open.length} ${open.length === 1 ? "Aufgabe" : "Aufgaben"} im Plan – arbeite so lange an jeder, wie du willst.` : "Noch nichts für heute geplant."}</p>
+      ${hint("one", "Eine Aufgabe zur Zeit – es dauert, so lange es dauert.")}</div>
+    <span class="grow"></span>
+    <div class="today-stats">
+      <div class="stat-inline"><b data-live-day="${today}">${fmtDur(daySecs)}</b><small>heute erfasst</small></div>
+      <div class="week-progress" data-view="review" title="Zum Rückblick"><div class="progress"><span style="width:${pct}%"></span></div>
+        <small>${fmtHours(weekSecs)} von ${target.toLocaleString("de-DE")} h Quest-Zeit diese Woche</small></div>
+    </div></div>`;
+
+  const noQuestHint = `<div class="hint-row"><span class="icon">rocket_launch</span>Noch keine Quest-Arbeit geplant.
+    <button class="link-btn" data-view="plan">Woche planen</button></div>`;
+  let left = todaySection("Quest-Arbeit", questWork, { empty: noQuestHint });
+  left += todaySection("Sonstiges", other, { note: hint("coherence", "erst, wenn die Quest-Arbeit steht") });
+  if (!open.length && !suggestions.length) {
+    left += `<div class="empty"><span class="icon">wb_sunny</span><h3>Ein freier Tag</h3>
+      <p>Zieh in <button class="link-btn" data-view="plan">Planen</button> Aufgaben auf heute – ohne feste Uhrzeiten. Dann wählst du hier, woran du arbeitest.</p></div>`;
+  }
+  if (suggestions.length) {
+    left += `<section class="group"><h2>Vorschläge<span class="count">${suggestions.length}</span><span class="aside">fällig oder in Arbeit</span></h2>
+      <div class="panel">${suggestions.map((t) => todayRow(t, { suggest: true })).join("")}</div></section>`;
+  }
+  left += foldGroup("Heute erledigt", done);
+
+  return `<div class="page">${head}<div class="today"><div>${left}</div>
+    <aside class="timeline-card"><h2><span class="icon" style="font-size:18px">schedule</span>Zeitleiste
+      <span class="aside" data-live-day="${today}">${fmtDur(daySecs)}</span></h2>${timeGrid([today], { head: false })}</aside>
+  </div></div>`;
+}
+
+// --- Zeitraster (Heute & Kalenderwoche) -----------------------------------
+
+function sessionBlock(s, hourPx) {
+  const start = new Date(sessStart(s));
+  const startMin = start.getHours() * 60 + start.getMinutes();
+  const mins = Math.min(sessSecs(s) / 60, 24 * 60 - startMin); // am Tagesende abschneiden
+  const height = Math.max(3, (mins * hourPx) / 60);
+  const t = taskById(s.task_id);
+  const q = questById(t?.quest_id);
+  const title = t ? t.title : "Gelöschte Aufgabe";
+  const tip = `${title} · ${hhmm(sessStart(s))}–${s.ended_at ? hhmm(sessEnd(s)) : "läuft"} (${fmtDur(sessSecs(s))})`;
+  const action = s.ended_at ? `data-session="${s.id}"` : `data-focus-open="${s.task_id}"`;
+  return `<button class="block ${q ? "" : "plain"} ${s.ended_at ? "" : "running"}" ${action} title="${esc(tip)}" aria-label="${esc(tip)}"
+    style="top:${(startMin * hourPx) / 60}px;height:${height}px;${q ? `background-color:${q.color}` : ""}">${height >= 15 ? esc(title) : ""}</button>`;
+}
+
+const HOUR_PX = () => (matchMedia("(max-width: 760px)").matches ? 40 : 44);
+
+function timeGrid(days, { head = true } = {}) {
+  const hourPx = HOUR_PX();
+  const hours = Array.from({ length: 24 }, (_, h) => `<div class="tl-hour">${h ? pad2(h) + ":00" : ""}</div>`).join("");
+  const nowD = new Date(now());
+  const cols = days.map((day) => {
+    const blocks = daySessions(day).map((s) => sessionBlock(s, hourPx)).join("");
+    const line = day === state.today ? `<div class="now-line" style="top:${((nowD.getHours() * 60 + nowD.getMinutes()) * hourPx) / 60}px"></div>` : "";
+    return `<div class="tl-day ${day === state.today && days.length > 1 ? "is-today" : ""}" style="height:${24 * hourPx}px">${blocks}${line}</div>`;
+  }).join("");
+  const header = head ? `<div class="tl-head" style="--days:${days.length}"><div></div>${days.map((day) => {
+    const secs = sumSecs(daySessions(day));
+    return `<div class="${day === state.today ? "is-today" : ""}"><b>${WD_SHORT[weekdayIdx(day)]} ${parseDate(day).getDate()}</b>
+      <small data-live-day="${day}">${secs ? fmtDur(secs) : "–"}</small></div>`;
+  }).join("")}</div>` : "";
+  return `<div class="tl-scroll" data-scroll="tl" data-has-today="${days.includes(state.today)}">${header}
+    <div class="tl" style="--days:${days.length}"><div>${hours}</div>${cols}</div></div>`;
+}
+
+function renderCalWeek() {
+  const monday = (state.calWeek ||= mondayOf(state.today));
+  const days = Array.from({ length: 7 }, (_, i) => addDays(monday, i));
+  const sess = weekSessions(monday);
+  const total = sumSecs(sess), quest = sumSecs(sess.filter((s) => questOfSession(s)));
+  return `<div class="cal">
+    <div class="cal-head">
+      <button class="outlined-btn" data-cal="today">Heute</button>
+      <button class="icon-btn" data-cal="prev" aria-label="Vorherige Woche"><span class="icon">chevron_left</span></button>
+      <button class="icon-btn" data-cal="next" aria-label="Nächste Woche"><span class="icon">chevron_right</span></button>
+      <h2>${weekRange(monday)}</h2>
+      <span style="flex:1"></span>
+      ${calModeToggle()}
+    </div>
+    <div class="week-card">${timeGrid(days)}</div>
+    <div class="hint-row" style="padding:12px 4px">
+      <span class="icon">timer</span><span>${fmtHours(total)} erfasst · davon ${fmtHours(quest)} Quest-Arbeit</span>
+      ${hint("done", "Logbuch statt Zeitblöcke – hier steht, was wirklich war.")}
+      <span style="flex:1"></span>
+      <button class="outlined-btn" data-log><span class="icon" style="font-size:18px;vertical-align:-4px">more_time</span> Zeit nachtragen</button>
+    </div>
+  </div>`;
+}
+
+const calModeToggle = () => `<div class="segmented" role="group" aria-label="Kalenderansicht">
+  <button data-cal-mode="month" aria-pressed="${state.calMode === "month"}">Monat</button>
+  <button data-cal-mode="week" aria-pressed="${state.calMode === "week"}">Woche</button></div>`;
+
+// --- Planen ---------------------------------------------------------------
+
+function planCard(t) {
+  const q = questById(t.quest_id);
+  const secs = taskSecs(t.id);
+  const isRun = running()?.task_id === t.id;
+  const due = dueLabel(t);
+  return `<div class="card mini ${t.status}-task" data-id="${t.id}" data-drag="${t.id}" ${q ? `style="border-left-color:${q.color}"` : ""} role="button" tabindex="0">
+    <div class="top"><div class="title">${esc(t.title)}</div>${prioIcon(t)}</div>
+    <div class="meta">${q ? questTag(q) : ""}${due ? `<span class="tag ${due.cls}"><span class="icon">event</span>${esc(due.text)}</span>` : ""}${secs || isRun
+      ? `<span class="tag"><span class="icon">timer</span><span data-live-task="${t.id}">${isRun ? fmtClock(secs) : fmtDur(secs)}</span></span>` : ""}</div>
+  </div>`;
+}
+
+function renderPlan(tasks) {
+  const monday = (state.planWeek ||= mondayOf(state.today));
+  const days = Array.from({ length: 7 }, (_, i) => addDays(monday, i));
+  const backlog = sortTasks(tasks.filter((t) => isOpen(t) && !t.plan_date));
+  const groups = state.quests.map((q) => [q, backlog.filter((t) => t.quest_id === q.id)]).filter(([, l]) => l.length);
+  const loose = backlog.filter((t) => !questById(t.quest_id));
+  const backlogCol = `<section class="column backlog" data-drop-plan="">
+    <h2><span class="icon">inbox</span>Nicht eingeplant<span class="count">${backlog.length}</span></h2>
+    ${groups.map(([q, l]) => `<div class="sub-head"><span class="icon fill" style="font-size:16px;color:${q.color}">rocket_launch</span>${esc(q.title)}</div>${l.map(planCard).join("")}`).join("")}
+    ${loose.length && groups.length ? `<div class="sub-head">Ohne Quest</div>` : ""}${loose.map(planCard).join("")}
+    ${backlog.length ? "" : `<div class="empty-col">Alles eingeplant</div>`}</section>`;
+
+  const cols = days.map((day) => {
+    const list = tasks.filter((t) => t.status !== "deferred" && (isOpen(t) ? plannedFor(t) === day : t.plan_date === day));
+    const openList = sortTasks(list.filter(isOpen)), doneList = list.filter((t) => !isOpen(t));
+    const secs = sumSecs(daySessions(day));
+    const past = day < state.today;
+    return `<section class="column ${day === state.today ? "today-col" : ""} ${past ? "past" : ""}" data-drop-plan="${day}">
+      <h2><span>${WD_SHORT[weekdayIdx(day)]} <b>${parseDate(day).getDate()}</b></span>${secs ? `<small data-live-day="${day}">${fmtDur(secs)}</small>` : ""}
+        <span class="count">${openList.length}</span></h2>
+      ${[...openList, ...doneList].map(planCard).join("") || `<div class="empty-col">${past ? "–" : "Hierher ziehen"}</div>`}</section>`;
+  }).join("");
+
+  return `<div class="page" style="max-width:none">
+    <div class="page-head"><div><h1>Woche planen</h1>
+      <p class="sub">Zieh Aufgaben auf einen Tag – ohne feste Uhrzeit. Unerledigtes rutscht automatisch auf heute.</p>
+      ${hint("day", "Nach Tag planen, nicht nach Stunde: Reihenfolge statt Zeitblöcke.")}</div>
+      <span class="grow"></span>
+      <div class="week-nav"><button class="outlined-btn" data-week="today">Diese Woche</button>
+        <button class="icon-btn" data-week="prev" aria-label="Vorherige Woche"><span class="icon">chevron_left</span></button>
+        <span class="range">${weekRange(monday)}</span>
+        <button class="icon-btn" data-week="next" aria-label="Nächste Woche"><span class="icon">chevron_right</span></button></div>
+    </div>
+    <div class="plan" data-scroll="plan">${backlogCol}${cols}</div></div>`;
+}
+
+// --- Quests ---------------------------------------------------------------
+
+function sparkline(vals, color) {
+  const w = 104, h = 34, max = Math.max(...vals, 1);
+  const pts = vals.map((v, i) => [(i * (w - 6)) / (vals.length - 1) + 3, h - 4 - (v / max) * (h - 8)]);
+  const [lx, ly] = pts[pts.length - 1];
+  return `<svg class="spark" viewBox="0 0 ${w} ${h}" aria-hidden="true">
+    <polyline points="${pts.map((p) => p.map((n) => n.toFixed(1)).join(",")).join(" ")}" fill="none" stroke="${color}" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+    <circle cx="${lx.toFixed(1)}" cy="${ly.toFixed(1)}" r="3" fill="${color}"/></svg>`;
+}
+
+function questCard(q) {
+  const monday = mondayOf(state.today);
+  const sess = state.sessions.filter((s) => taskById(s.task_id)?.quest_id === q.id);
+  const openN = state.tasks.filter((t) => t.quest_id === q.id && isOpen(t)).length;
+  const doneN = state.tasks.filter((t) => t.quest_id === q.id && t.status === "done").length;
+  const weeks = Array.from({ length: 8 }, (_, i) => addDays(monday, -7 * (7 - i)));
+  const perWeek = weeks.map((w) => sumSecs(sess.filter((s) => { const d = sessDay(s); return d >= w && d <= addDays(w, 6); })));
+  return `<button class="quest-card ${q.status}" style="--qc:${q.color}" data-quest="${q.id}">
+    <div class="qhead"><span class="q-icon"><span class="icon fill">${q.status === "completed" ? "emoji_events" : "rocket_launch"}</span></span>
+      <div style="min-width:0"><div class="qtitle">${esc(q.title)}</div><div class="qsub">${openN} offen · ${doneN} erledigt</div></div></div>
+    ${q.notes ? `<div class="notes">${esc(q.notes)}</div>` : ""}
+    <div class="qfoot"><div><div class="big">${fmtHours(perWeek[7])}</div><div class="qsub">diese Woche</div></div>
+      <div class="end">${sparkline(perWeek, q.color)}<div class="qsub">${fmtHours(sumSecs(sess))} gesamt</div></div></div>
+  </button>`;
+}
+
+function renderQuests() {
+  const active = state.quests.filter((q) => q.status === "active");
+  const completed = state.quests.filter((q) => q.status === "completed");
+  const list = state.questTab === "completed" ? completed : active;
+  const allSecs = sumSecs(state.sessions.filter((s) => questOfSession(s)));
+  const cards = list.map(questCard).join("") +
+    (state.questTab === "active" ? `<button class="quest-card new" data-quest="new"><span class="icon">add</span>Neue Quest</button>` : "");
+  return `<div class="page">
+    <div class="page-head"><div><h1>Quests</h1><p class="sub">Gib deiner Zeit ein Ziel. Jede Aufgabe kann auf eine Quest einzahlen.</p>
+      ${hint("coherence", "Vertikale Kohärenz: Jede Stunde sollte auf ein größeres Ziel einzahlen.")}</div>
+      <span class="grow"></span><button class="btn filled" data-quest="new"><span class="icon">add</span>Neue Quest</button></div>
+    <div class="tiles">
+      <div class="tile"><div class="k">Quest-Stunden gesamt</div><div class="v">${fmtHours(allSecs)}</div></div>
+      <div class="tile"><div class="k">Aktiv</div><div class="v">${active.length}</div></div>
+      <div class="tile"><div class="k">Abgeschlossen</div><div class="v">${completed.length}</div></div>
+    </div>
+    <div class="quest-tabs"><div class="segmented" role="group" aria-label="Quests filtern">
+      <button data-quest-tab="active" aria-pressed="${state.questTab === "active"}">Aktiv · ${active.length}</button>
+      <button data-quest-tab="completed" aria-pressed="${state.questTab === "completed"}">Abgeschlossen · ${completed.length}</button></div>
+      <span class="muted">Kleine Schritte. Spürbare Ergebnisse.</span></div>
+    ${cards ? `<div class="quest-grid">${cards}</div>` : `<div class="empty"><span class="icon">emoji_events</span><h3>Noch nichts abgeschlossen</h3><p>Abgeschlossene Quests erscheinen hier.</p></div>`}
+  </div>`;
+}
+
+// --- Rückblick ------------------------------------------------------------
+
+function stackedBar(segs, max, px) {
+  const total = segs.reduce((a, x) => a + x.secs, 0);
+  return `<div class="vbar" style="height:${(total / max) * px}px">${segs.filter((x) => x.secs > 0)
+    .map((x) => `<span style="height:${(100 * x.secs) / total}%;background:${x.color}" title="${esc(x.label)}: ${fmtDur(x.secs)}"></span>`).join("")}</div>`;
+}
+
+function renderReview() {
+  const monday = (state.reviewWeek ||= mondayOf(state.today));
+  const days = Array.from({ length: 7 }, (_, i) => addDays(monday, i));
+  const sess = weekSessions(monday);
+  const total = sumSecs(sess);
+  const questSecs = sumSecs(sess.filter((s) => questOfSession(s)));
+  const otherSecs = total - questSecs;
+  const target = state.settings.weekly_target_hours;
+  const targetPct = Math.round((100 * questSecs) / (target * 3600));
+  const elapsed = monday > state.today ? 0 : Math.min(7, daysBetween(monday, state.today) + 1);
+  const share = total ? Math.round((100 * questSecs) / total) : 0;
+  const doneN = state.tasks.filter((t) => t.completed_at && (() => { const d = localDay(t.completed_at); return d >= monday && d <= days[6]; })()).length;
+
+  const segsFor = (list) => [
+    ...state.quests.map((q) => ({ label: q.title, color: q.color, secs: sumSecs(list.filter((s) => questOfSession(s)?.id === q.id)) })),
+    { label: "Sonstiges", color: "var(--outline)", secs: sumSecs(list.filter((s) => !questOfSession(s))) },
+  ];
+  const PX = 140;
+  const perDay = days.map((d) => sess.filter((s) => sessDay(s) === d));
+  const dayMax = Math.max(3600, ...perDay.map(sumSecs));
+  const dayChart = `<div class="chart">${perDay.map((list) => `<div class="bar-col"><span class="bar-val">${sumSecs(list) ? fmtDur(sumSecs(list)) : "–"}</span>${stackedBar(segsFor(list), dayMax, PX)}</div>`).join("")}</div>
+    <div class="chart-labels">${days.map((d) => `<span class="${d === state.today ? "cur" : ""}">${WD_SHORT[weekdayIdx(d)]}</span>`).join("")}</div>`;
+
+  const byQuest = state.quests.map((q) => ({ q, secs: sumSecs(sess.filter((s) => questOfSession(s)?.id === q.id)) }))
+    .filter((x) => x.secs > 0).sort((a, b) => b.secs - a.secs);
+  const qMax = Math.max(1, ...byQuest.map((x) => x.secs));
+  const questList = byQuest.length ? byQuest.map(({ q, secs }) => `<div class="hbar"><span class="name"><span class="dot" style="background:${q.color}"></span><span>${esc(q.title)}</span></span>
+      <span class="track"><span style="width:${(100 * secs) / qMax}%;background:${q.color}"></span></span><span class="val">${fmtDur(secs)}</span></div>`).join("")
+    : `<p class="muted">Diese Woche noch keine Quest-Zeit erfasst.</p>`;
+
+  const weeks = Array.from({ length: 12 }, (_, i) => addDays(monday, -7 * (11 - i)));
+  const perWeek = weeks.map((w) => sumSecs(weekSessions(w).filter((s) => questOfSession(s))));
+  const counted = perWeek.filter((v, i) => v > 0 || i === 11);
+  const avg = counted.reduce((a, v) => a + v, 0) / Math.max(1, counted.length);
+  const wMax = Math.max(target * 3600 * 1.1, ...perWeek);
+  const weekChart = `<div class="chart weeks">
+      <div class="ref" style="bottom:${(target * 3600 / wMax) * PX}px"><span>Ziel ${target.toLocaleString("de-DE")} h</span></div>
+      ${perWeek.map((v) => `<div class="bar-col"><span class="bar-val">${v ? fmtHours(v) : ""}</span>
+        <div class="vbar" style="height:${(v / wMax) * PX}px"><span style="height:100%;background:var(--primary)"></span></div></div>`).join("")}</div>
+    <div class="chart-labels">${weeks.map((w) => `<span class="${w === monday ? "cur" : ""}">${parseDate(w).getDate()}.${parseDate(w).getMonth() + 1}.</span>`).join("")}</div>`;
+
+  return `<div class="page">
+    <div class="page-head"><div><h1>Wochenrückblick</h1><p class="sub">Wie viel deiner Woche hat deine Quests vorangebracht?</p>
+      ${hint("input", "Input-Ziel: Gemessen werden Stunden, nicht Ergebnisse.")}</div>
+      <span class="grow"></span>
+      <div class="week-nav"><button class="outlined-btn" data-week="today">Diese Woche</button>
+        <button class="icon-btn" data-week="prev" aria-label="Vorherige Woche"><span class="icon">chevron_left</span></button>
+        <span class="range">${weekRange(monday)}</span>
+        <button class="icon-btn" data-week="next" aria-label="Nächste Woche"><span class="icon">chevron_right</span></button></div>
+    </div>
+    <div class="tiles">
+      <button class="tile" data-target title="Wochenziel ändern"><div class="k">Quest-Zeit</div>
+        <div class="v">${fmtHours(questSecs)} <small>/ ${target.toLocaleString("de-DE")} h</small></div>
+        <div class="progress"><span style="width:${Math.min(100, targetPct)}%"></span></div><div class="hint">${targetPct} % deines Input-Ziels</div></button>
+      <div class="tile"><div class="k">Tagesschnitt</div><div class="v">${fmtHours(elapsed ? total / elapsed : 0)}</div><div class="hint">${fmtHours(total)} erfasst insgesamt</div></div>
+      <div class="tile"><div class="k">Quest-Anteil</div><div class="v">${share} <small>%</small></div><div class="hint">deiner erfassten Zeit</div></div>
+      <div class="tile"><div class="k">Erledigt</div><div class="v">${doneN}</div><div class="hint">${doneN === 1 ? "Aufgabe" : "Aufgaben"} abgeschlossen</div></div>
+    </div>
+    <div class="review-grid">
+      <div class="chart-card"><h3>Zeit pro Tag<span class="aside">farbig = Quest-Arbeit</span></h3>${dayChart}</div>
+      <div class="stack">
+        <div class="chart-card"><h3>Zeit je Quest</h3>${questList}</div>
+        <div class="chart-card"><h3>Quest-Arbeit vs. Sonstiges</h3>
+          <div class="split"><span style="width:${total ? (100 * questSecs) / total : 0}%;background:var(--primary)"></span><span style="width:${total ? (100 * otherSecs) / total : 0}%;background:var(--outline)"></span></div>
+          <div class="legend"><span><span class="dot" style="background:var(--primary)"></span>Quest-Arbeit · ${fmtDur(questSecs)}</span>
+            <span><span class="dot" style="background:var(--outline)"></span>Sonstiges · ${fmtDur(otherSecs)}</span></div></div>
+      </div>
+    </div>
+    <div class="chart-card" style="margin-top:12px"><h3>Quest-Zeit · letzte 12 Wochen<span class="aside">Ø ${fmtHours(avg)} pro Woche</span></h3>${weekChart}</div>
+    ${hintsOn() ? `<div class="chart-card ritual" style="margin-top:12px"><h3>Dein Wochenritual<span class="aside">20 Minuten, gern mit jemandem zusammen</span></h3>
+      <ol class="questions">${GUIDE.find((p) => p.key === "ritual").questions.map((q) => `<li>${esc(q)}</li>`).join("")}</ol>
+      ${hint("ritual", "Warum ein festes Ritual?")}</div>` : ""}
+  </div>`;
+}
+
+function renderChips() {
+  const projects = allProjects();
+  projectColors = Object.fromEntries(projects.map((p, i) => [p, HUES[i % HUES.length]]));
+  document.getElementById("project-list").innerHTML = projects.map((p) => `<option value="${esc(p)}">`).join("");
+  if (state.project && !projects.includes(state.project)) state.project = null;
+  const chip = (value, label, dot) => `<button class="chip" data-project="${esc(value)}" aria-pressed="${(state.project || "") === value}">
+    ${dot ? `<span class="dot" style="background:${dot}"></span>` : ""}${esc(label)}</button>`;
+  document.getElementById("chips").innerHTML = projects.length && !["quests", "review"].includes(state.view)
+    ? chip("", "Alle") + projects.map((p) => chip(p, p, projectColor(p))).join("") : "";
+}
+
+const RENDERERS = {
+  today: renderToday, plan: renderPlan, list: renderList, board: renderBoard,
+  calendar: renderCalendar, quests: renderQuests, review: renderReview,
+};
+
+// Scrollposition von Zeitleiste und Wochenplan über Neuzeichnen hinweg behalten
+function saveScroll(main) {
+  for (const el of main.querySelectorAll("[data-scroll]")) state.scroll[`${main.dataset.rendered}:${el.dataset.scroll}`] = [el.scrollLeft, el.scrollTop];
+}
+
+function restoreScroll(main) {
+  for (const el of main.querySelectorAll("[data-scroll]")) {
+    const saved = state.scroll[`${state.view}:${el.dataset.scroll}`];
+    if (saved) { [el.scrollLeft, el.scrollTop] = saved; continue; }
+    if (el.dataset.scroll === "tl") {
+      const hour = el.dataset.hasToday === "true" ? new Date(now()).getHours() - 2 : 7;
+      el.scrollTop = Math.max(0, hour * HOUR_PX());
+    } else if (el.dataset.scroll === "plan") {
+      const col = el.querySelector(".today-col"), backlog = el.querySelector(".backlog");
+      if (col && backlog) el.scrollLeft = col.offsetLeft - el.offsetLeft - (getComputedStyle(backlog).position === "sticky" ? backlog.offsetWidth + 12 : 0);
+    }
+  }
+}
+
+function render() {
+  if (drag.active) { drag.renderPending = true; return; }
+  for (const b of document.querySelectorAll(".toolbar [data-view]")) b.setAttribute("aria-pressed", b.dataset.view === state.view);
+  renderChips();
+  updatePill();
+  if (!state.today) return;
+  const tasks = visibleTasks();
+  const main = document.getElementById("main");
+  saveScroll(main);
+  main.innerHTML = RENDERERS[state.view](tasks);
+  main.dataset.rendered = state.view;
+  restoreScroll(main);
+  renderFocus();
+}
+
+// --- Speichern ------------------------------------------------------------
+
+// Lokale Werte (null) ↔ API-Werte ("" bzw. "none" entfernt ein Feld)
+const toApi = (k, v) => v !== null && v !== undefined ? v : k === "priority" ? "none" : k === "tags" ? [] : k === "quest_id" ? 0 : "";
+const toLocal = (k, v) => (k === "priority" && v === "none") || (k === "quest_id" && !v) || (v === "" && k !== "notes") ? null : v;
+
+let snackTimer;
+function snackbar(text, undo, label = "Rückgängig") {
+  const el = document.getElementById("snack");
+  el.innerHTML = `<span>${esc(text)}</span>${undo ? `<button type="button">${esc(label)}</button>` : ""}`;
+  if (undo) el.querySelector("button").onclick = () => { el.classList.remove("show"); undo(); };
+  el.classList.add("show");
+  clearTimeout(snackTimer);
+  snackTimer = setTimeout(() => el.classList.remove("show"), undo ? 6000 : 3500);
+}
+
+const api = (method, id, body) => call(method, `/api/tasks/${id}`, body);
+
+async function call(method, url, body) {
+  const res = await fetch(url, {
+    method, headers: body ? { "Content-Type": "application/json" } : {}, body: body ? JSON.stringify(body) : undefined,
+  });
+  if (res.status === 401) { location.href = "/login"; throw new Error("Nicht angemeldet"); }
+  if (res.status === 204) return null;
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) throw new Error(data.error || `Fehler ${res.status}`);
+  return data;
+}
+
+/** Ändert Felder sofort lokal, speichert im Hintergrund und bietet „Rückgängig“ an. */
+async function saveTask(id, fields, message, undoable = true) {
+  const t = state.tasks.find((x) => x.id === id);
+  if (!t) return;
+  const keys = Object.keys(fields);
+  if ("due_date" in fields && !fields.due_date) keys.push("due_time");
+  const before = Object.fromEntries(keys.map((k) => [k, t[k]]));
+  const beforeCompleted = t.completed_at;
+  for (const k of Object.keys(fields)) t[k] = toLocal(k, fields[k]);
+  if ("due_date" in fields && !fields.due_date) t.due_time = null;
+  if ("status" in fields && fields.status !== before.status) t.completed_at = fields.status === "done" ? new Date().toISOString() : null;
+  state.pending++;
+  render();
+  try {
+    Object.assign(t, await api("PATCH", id, fields));
+    if (message) {
+      const undoFields = Object.fromEntries(Object.entries(before).map(([k, v]) => [k, toApi(k, v)]));
+      snackbar(message, undoable ? () => saveTask(id, undoFields, "Rückgängig gemacht", false) : null);
+    }
+  } catch (err) {
+    Object.assign(t, before, { completed_at: beforeCompleted });
+    snackbar("Nicht gespeichert: " + err.message);
+  } finally {
+    state.pending--;
+    render();
+    resync(); // Folgen auf dem Server, z. B. stoppt der Timer, wenn die Aufgabe erledigt ist
+  }
+}
+
+/** Für Quests, Zeiteinträge und Einstellungen: speichern, dann alles neu laden. */
+async function mutate(method, url, body, message, undo) {
+  state.pending++;
+  try {
+    const data = await call(method, url, body);
+    if (message) snackbar(message, undo);
+    return data;
+  } catch (err) {
+    snackbar("Nicht gespeichert: " + err.message);
+    throw err;
+  } finally {
+    state.pending--;
+    await resync();
+  }
+}
+
+function toggleDone(id) {
+  const t = state.tasks.find((x) => x.id === id);
+  if (!t) return;
+  const done = t.status !== "done";
+  saveTask(id, { status: done ? "done" : "todo" }, done ? "Erledigt" : "Wieder geöffnet");
+}
+
+// --- Bearbeiten -----------------------------------------------------------
+
+function openTask(id) {
+  const t = state.tasks.find((x) => x.id === id);
+  if (!t) return;
+  const radio = (name, value, checked, inner) =>
+    `<label><input type="radio" name="${name}" value="${value}" ${checked ? "checked" : ""}><span>${inner}</span></label>`;
+  const statusRadios = Object.entries(STATUS).map(([k, s]) =>
+    radio("status", k, t.status === k, `<span class="icon ${k === "done" ? "fill" : ""}" style="font-size:18px">${s.icon}</span>${s.label}`)).join("");
+  const prioRadios = [["none", "Keine"], ["low", PRIO.low], ["medium", PRIO.medium], ["high", PRIO.high]].map(([k, label]) =>
+    radio("priority", k, (t.priority || "none") === k, k === "none" ? label : `<span class="icon fill prio ${k}">flag</span>${label}`)).join("");
+  const questOptions = [`<option value="0">Keine Quest</option>`, ...state.quests
+    .filter((q) => q.status === "active" || q.id === t.quest_id)
+    .map((q) => `<option value="${q.id}" ${q.id === t.quest_id ? "selected" : ""}>${esc(q.title)}</option>`)].join("");
+  const tracked = taskSecs(t.id);
+  const meta = [`Nr. ${t.id}`, `erstellt ${stamp(t.created_at)}`];
+  if (tracked) meta.push(`erfasst ${fmtDur(tracked)}`);
+  if (t.updated_at !== t.created_at) meta.push(`geändert ${stamp(t.updated_at)}`);
+  if (t.completed_at) meta.push(`erledigt ${stamp(t.completed_at)}`);
+
+  const body = document.getElementById("dlg-body");
+  body.innerHTML = `<form class="dlg" id="edit" data-task="${t.id}" autocomplete="off">
+    <div class="dlg-head">
+      <textarea class="title-input" name="title" rows="1" required placeholder="Titel">${esc(t.title)}</textarea>
+      <button type="button" class="icon-btn" data-close aria-label="Schließen"><span class="icon">close</span></button>
+    </div>
+    <div class="segmented seg-status" role="radiogroup" aria-label="Status">${statusRadios}</div>
+    <div class="form">
+      <label class="f"><span class="icon">rocket_launch</span><select name="quest_id" aria-label="Quest">${questOptions}</select></label>
+      <div class="f"><span class="icon">event_available</span><span class="lbl">Geplant</span><div class="pair">
+        <input type="date" name="plan_date" value="${esc(t.plan_date || "")}" aria-label="Geplant für">
+      </div><button type="button" class="icon-btn" data-clear-plan title="Aus dem Plan nehmen" aria-label="Aus dem Plan nehmen"><span class="icon">event_busy</span></button></div>
+      <div class="f"><span class="icon">event</span><span class="lbl">Fällig</span><div class="pair">
+        <input type="date" name="due_date" value="${esc(t.due_date || "")}" aria-label="Fälligkeitsdatum">
+        <input type="time" name="due_time" value="${esc(t.due_time || "")}" aria-label="Uhrzeit">
+      </div><button type="button" class="icon-btn" data-clear-date title="Datum entfernen" aria-label="Datum entfernen"><span class="icon">event_busy</span></button></div>
+      <div class="f"><span class="icon">flag</span><div class="prio-row" role="radiogroup" aria-label="Priorität">${prioRadios}</div></div>
+      <label class="f"><span class="icon">folder</span><input name="project" list="project-list" value="${esc(t.project || "")}" placeholder="Projekt"></label>
+      <label class="f"><span class="icon">sell</span><input name="tags" value="${esc(t.tags.join(", "))}" placeholder="Tags, mit Komma getrennt"></label>
+    </div>
+    <textarea class="notes-input" name="notes" placeholder="Notizen">${esc(t.notes)}</textarea>
+    <div class="form-error" id="form-error" hidden></div>
+    <div class="dlg-meta"><span class="icon" style="font-size:16px">info</span>${esc(meta.join(" · "))}</div>
+    <div class="dlg-actions">
+      <button type="button" class="btn danger" data-delete>Löschen</button>
+      <span class="spacer"></span>
+      ${isOpen(t) ? `<button type="button" class="btn text" data-focus-open="${t.id}" title="Im Fokus-Modus öffnen"><span class="icon">center_focus_strong</span>Fokus</button>`
+        : `<button type="button" class="btn text" data-close>Abbrechen</button>`}
+      <button type="submit" class="btn filled">Speichern</button>
+    </div>
+  </form>`;
+  showForm(body);
+}
+
+/** Dialog mit mitwachsendem Titelfeld öffnen; Enter im Titel speichert. */
+function showForm(body) {
+  const title = body.querySelector(".title-input");
+  const grow = () => { title.style.height = "auto"; title.style.height = title.scrollHeight + "px"; };
+  title?.addEventListener("input", grow);
+  title?.addEventListener("keydown", (e) => { if (e.key === "Enter") { e.preventDefault(); body.querySelector("form").requestSubmit(); } });
+  const dlg = document.getElementById("dlg");
+  if (!dlg.open) dlg.showModal();
+  if (title) { grow(); if (title.value) title.blur(); }
+}
+
+function submitEdit(form) {
+  const id = Number(form.dataset.task);
+  const t = state.tasks.find((x) => x.id === id);
+  const f = new FormData(form);
+  const err = document.getElementById("form-error");
+  const values = {
+    title: f.get("title").trim(),
+    notes: f.get("notes").trim(),
+    status: f.get("status"),
+    due_date: f.get("due_date"),
+    due_time: f.get("due_date") ? f.get("due_time") : "",
+    priority: f.get("priority"),
+    project: f.get("project").trim(),
+    tags: [...new Set(f.get("tags").split(",").map((x) => x.trim().replace(/^#/, "")).filter(Boolean))],
+    quest_id: Number(f.get("quest_id")) || 0,
+    plan_date: f.get("plan_date"),
+  };
+  if (!values.title) { err.textContent = "Der Titel darf nicht leer sein."; err.hidden = false; return; }
+  if (!t) return document.getElementById("dlg").close();
+  const changed = {};
+  for (const [k, v] of Object.entries(values)) {
+    if (JSON.stringify(v) !== JSON.stringify(toApi(k, t[k]))) changed[k] = v;
+  }
+  document.getElementById("dlg").close();
+  if (Object.keys(changed).length) saveTask(id, changed, "Gespeichert");
+}
+
+async function deleteTask(btn) {
+  if (!btn.classList.contains("armed")) {
+    btn.classList.add("armed");
+    btn.textContent = "Wirklich löschen?";
+    setTimeout(() => { btn.classList.remove("armed"); btn.textContent = "Löschen"; }, 4000);
+    return;
+  }
+  const id = Number(btn.closest("form").dataset.task);
+  document.getElementById("dlg").close();
+  try {
+    await api("DELETE", id);
+    state.tasks = state.tasks.filter((x) => x.id !== id);
+    state.etag = null;
+    render();
+    snackbar("Aufgabe gelöscht");
+  } catch (err) {
+    snackbar("Nicht gelöscht: " + err.message);
+  }
+}
+
+// --- Fokus & Timer ----------------------------------------------------------
+
+/** Startet oder pausiert den Timer einer Aufgabe; es läuft immer höchstens einer. */
+async function togglePlay(id) {
+  const t = taskById(id);
+  if (!t) return;
+  const run = running();
+  const stopping = run?.task_id === id;
+  const stampNow = new Date(now()).toISOString();
+  if (run) run.ended_at = stampNow;
+  if (!stopping) {
+    state.sessions.push({ id: -Date.now(), task_id: id, started_at: stampNow, ended_at: null });
+    if (t.status === "todo") t.status = "doing";
+  }
+  state.focusTask = id;
+  state.pending++;
+  render();
+  try {
+    await call("POST", "/api/focus", stopping ? {} : { task_id: id });
+  } catch (err) {
+    snackbar("Timer: " + err.message);
+    state.etag = null; // vorläufigen Eintrag verwerfen
+  } finally {
+    state.pending--;
+    await (state.etag ? resync() : load());
+  }
+}
+
+/** Aufgaben für die Auswahl im Fokus: heutiger Plan, Quest-Arbeit zuerst. */
+function focusCandidates() {
+  const planned = sortTasks(state.tasks.filter((t) => isOpen(t) && plannedFor(t) === state.today));
+  return [...planned.filter((t) => questById(t.quest_id)), ...planned.filter((t) => !questById(t.quest_id))];
+}
+
+function openFocus(id) {
+  document.getElementById("dlg").close();
+  state.focusTask = id ?? running()?.task_id ?? state.focusTask ?? null;
+  const t = taskById(state.focusTask);
+  if (!t || t.status === "done") state.focusTask = null;
+  const dlg = document.getElementById("focus");
+  renderFocus(true);
+  if (!dlg.open) dlg.showModal();
+}
+
+function renderFocus(force = false) {
+  const dlg = document.getElementById("focus");
+  if (!dlg.open && !force) return;
+  const body = document.getElementById("focus-body");
+  if (body.contains(document.activeElement) && document.activeElement.tagName === "TEXTAREA") return; // nicht beim Tippen neu aufbauen
+  const t = taskById(state.focusTask);
+  const top = (label) => `<div class="focus-top"><button class="icon-btn" data-focus-close aria-label="Zurück" title="Zurück (Esc)"><span class="icon">arrow_back</span></button>
+    <span class="label">${label}</span></div>`;
+  const candidates = focusCandidates();
+  if (!t) {
+    const others = candidates.length ? candidates : sortTasks(state.tasks.filter(isOpen)).slice(0, 12);
+    body.innerHTML = `<div class="focus-wrap">${top("Fokus")}<div class="focus-main"><div class="pick">
+      <h3>${candidates.length ? "Woran willst du jetzt arbeiten?" : "Für heute ist nichts geplant – wähle eine offene Aufgabe:"}</h3>
+      <div class="panel">${others.map((x) => `<div class="row" data-focus-pick="${x.id}" role="button" tabindex="0">
+        <span class="icon status ${x.status}">${STATUS[x.status].icon}</span><span class="row-main"><div class="title">${esc(x.title)}</div>
+        <div class="meta">${metaChips(x, { plan: false })}</div></span></div>`).join("") || `<div class="hint-row">Keine offenen Aufgaben.</div>`}</div>
+    </div></div></div>`;
+    return;
+  }
+  const q = questById(t.quest_id);
+  const isRun = running()?.task_id === t.id;
+  const open = isOpen(t);
+  const others = candidates.filter((x) => x.id !== t.id);
+  body.innerHTML = `<div class="focus-wrap">
+    ${top(`${isRun ? `<span class="pulse"></span>` : ""}Fokus${q ? " · " + esc(q.title) : ""}`)}
+    <div class="focus-main">
+      ${q ? questTag(q) : ""}
+      <div class="focus-title">${esc(t.title)}</div>
+      <div class="focus-clock" data-live-task="${t.id}">${fmtClock(taskSecs(t.id))}</div>
+      <div class="focus-state">${isRun ? "Läuft" : t.status === "done" ? "Erledigt" : "Pausiert"} · heute <span data-live-task-day="${t.id}">${fmtDur(taskSecs(t.id, state.today))}</span></div>
+      <div class="focus-actions">${open ? `
+        <button class="btn ${isRun ? "outlined" : "filled"}" data-play="${t.id}"><span class="icon fill">${isRun ? "pause" : "play_arrow"}</span>${isRun ? "Pause" : "Start"}</button>
+        <button class="btn outlined" data-focus-done="${t.id}"><span class="icon">check</span>Erledigt</button>` : ""}
+      </div>
+      ${hint("one", "Nur diese eine Aufgabe zählt gerade.")}
+    </div>
+    <textarea class="notes-input focus-notes" data-focus-notes="${t.id}" placeholder="Notizen zur Aufgabe – werden beim Verlassen des Feldes gespeichert">${esc(t.notes)}</textarea>
+    ${others.length ? `<div class="focus-next"><h3>Weitere Aufgaben für heute</h3><div class="switch-list">${others.map((x) => {
+      const xq = questById(x.quest_id);
+      return `<button class="chip" data-focus-pick="${x.id}">${xq ? `<span class="dot" style="background:${xq.color}"></span>` : ""}<span>${esc(x.title)}</span></button>`;
+    }).join("")}</div></div>` : ""}
+  </div>`;
+}
+
+/** Aufgabe im Fokus wechseln; läuft der Timer, läuft er für die neue Aufgabe weiter. */
+function pickFocus(id) {
+  const keepRunning = running() && running().task_id !== id;
+  state.focusTask = id;
+  renderFocus(true);
+  if (keepRunning) togglePlay(id);
+}
+
+function focusDone(id) {
+  const run = running();
+  if (run?.task_id === id) run.ended_at = new Date(now()).toISOString();
+  const next = focusCandidates().find((x) => x.id !== id);
+  state.focusTask = next?.id ?? null;
+  saveTask(id, { status: "done" }, "Erledigt");
+}
+
+function updatePill() {
+  const pill = document.getElementById("run-pill");
+  const run = running();
+  const t = run && taskById(run.task_id);
+  pill.classList.toggle("running", Boolean(run));
+  pill.title = run ? "Fokus öffnen" : "Fokus-Modus";
+  pill.innerHTML = run
+    ? `<span class="pulse"></span><span class="clock">${fmtClock(taskSecs(run.task_id))}</span><span class="what">${esc(t?.title || "")}</span>`
+    : `<span class="icon fill">play_circle</span><span class="what">Fokus</span>`;
+  document.title = run ? `${fmtClock(taskSecs(run.task_id))} · ${t?.title || ""}` : "Aufgaben";
+}
+
+/** Sekundentakt: laufende Uhren aktualisieren, ohne alles neu zu zeichnen. */
+function tick() {
+  const run = running();
+  if (!run) return;
+  updatePill();
+  const secs = taskSecs(run.task_id);
+  for (const el of document.querySelectorAll(`[data-live-task="${run.task_id}"]`)) el.textContent = fmtClock(secs);
+  for (const el of document.querySelectorAll(`[data-live-task-day="${run.task_id}"]`)) el.textContent = fmtDur(taskSecs(run.task_id, state.today));
+  for (const el of document.querySelectorAll(`[data-live-day="${sessDay(run)}"]`)) el.textContent = fmtDur(sumSecs(daySessions(sessDay(run))));
+}
+
+// --- Quests bearbeiten ----------------------------------------------------
+
+function openQuest(id) {
+  const q = id ? questById(id) : null;
+  if (id && !q) return;
+  const color = q?.color || QUEST_COLORS[state.quests.length % QUEST_COLORS.length];
+  const swatches = QUEST_COLORS.map((c) => `<label title="${c}"><input type="radio" name="color" value="${c}" ${c === color ? "checked" : ""}><span style="background:${c}"></span></label>`).join("");
+  const tasks = q ? sortTasks(state.tasks.filter((t) => t.quest_id === q.id && isOpen(t))) : [];
+  const meta = q ? [`erstellt ${stamp(q.created_at)}`, q.completed_at && `abgeschlossen ${stamp(q.completed_at)}`].filter(Boolean) : [];
+  const body = document.getElementById("dlg-body");
+  body.innerHTML = `<form class="dlg" id="quest-form" data-quest-id="${q?.id || ""}" autocomplete="off">
+    <div class="dlg-head">
+      <span class="q-icon" id="quest-icon" style="--qc:${color}"><span class="icon fill">rocket_launch</span></span>
+      <textarea class="title-input" name="title" rows="1" required placeholder="Was willst du erreichen?">${esc(q?.title || "")}</textarea>
+      <button type="button" class="icon-btn" data-close aria-label="Schließen"><span class="icon">close</span></button>
+    </div>
+    <div class="swatches" role="radiogroup" aria-label="Farbe">${swatches}</div>
+    <textarea class="notes-input" name="notes" placeholder="Warum ist dir das wichtig? Woran erkennst du, dass du es geschafft hast?">${esc(q?.notes || "")}</textarea>
+    ${q ? `<section class="group"><h2>Offene Aufgaben<span class="count">${tasks.length}</span></h2>
+      ${tasks.length ? `<div class="panel">${tasks.map(row).join("")}</div>`
+        : `<p class="muted">Noch keine Aufgaben. Ordne sie im Aufgabendialog zu oder bitte Claude darum.</p>`}</section>` : ""}
+    <div class="form-error" id="form-error" hidden></div>
+    ${meta.length ? `<div class="dlg-meta"><span class="icon" style="font-size:16px">info</span>${esc(meta.join(" · "))}</div>` : ""}
+    <div class="dlg-actions">
+      ${q ? `<button type="button" class="btn danger" data-delete-quest>Löschen</button>` : ""}
+      <span class="spacer"></span>
+      ${q ? `<button type="button" class="btn text" data-quest-status="${q.status === "active" ? "completed" : "active"}">${q.status === "active" ? "Abschließen" : "Wieder aktivieren"}</button>`
+        : `<button type="button" class="btn text" data-close>Abbrechen</button>`}
+      <button type="submit" class="btn filled">${q ? "Speichern" : "Anlegen"}</button>
+    </div>
+  </form>`;
+  body.querySelector(".swatches").addEventListener("change", (e) => document.getElementById("quest-icon").style.setProperty("--qc", e.target.value));
+  showForm(body);
+  if (!q) body.querySelector(".title-input").focus();
+}
+
+async function submitQuest(form) {
+  const f = new FormData(form);
+  const values = { title: f.get("title").trim(), notes: f.get("notes").trim(), color: f.get("color") };
+  const err = document.getElementById("form-error");
+  if (!values.title) { err.textContent = "Gib der Quest einen Namen."; err.hidden = false; return; }
+  const id = Number(form.dataset.questId);
+  document.getElementById("dlg").close();
+  if (!id) return mutate("POST", "/api/quests", values, "Quest angelegt").catch(() => {});
+  const q = questById(id);
+  const changed = Object.fromEntries(Object.entries(values).filter(([k, v]) => v !== q[k]));
+  if (Object.keys(changed).length) mutate("PATCH", `/api/quests/${id}`, changed, "Gespeichert").catch(() => {});
+}
+
+function setQuestStatus(form, status) {
+  const id = Number(form.dataset.questId);
+  const back = status === "completed" ? "active" : "completed";
+  document.getElementById("dlg").close();
+  mutate("PATCH", `/api/quests/${id}`, { status }, status === "completed" ? "Quest abgeschlossen – stark!" : "Quest wieder aktiv",
+    () => mutate("PATCH", `/api/quests/${id}`, { status: back }, "Rückgängig gemacht")).catch(() => {});
+}
+
+function deleteQuest(btn) {
+  if (!btn.classList.contains("armed")) {
+    btn.classList.add("armed");
+    btn.textContent = "Wirklich löschen?";
+    setTimeout(() => { btn.classList.remove("armed"); btn.textContent = "Löschen"; }, 4000);
+    return;
+  }
+  const id = Number(btn.closest("form").dataset.questId);
+  document.getElementById("dlg").close();
+  mutate("DELETE", `/api/quests/${id}`, null, "Quest gelöscht – die Aufgaben bleiben erhalten").catch(() => {});
+}
+
+// --- Zeiteinträge -----------------------------------------------------------
+
+function openSession(id) {
+  const s = id ? state.sessions.find((x) => x.id === id) : null;
+  if (id && !s) return;
+  const quarter = 15 * 60000;
+  const endMs = s ? sessEnd(s) : Math.floor(now() / quarter) * quarter;
+  const startMs = s ? sessStart(s) : endMs - 30 * 60000;
+  const recent = addDays(state.today, -30);
+  const pickable = state.tasks.filter((t) => isOpen(t) || t.id === s?.task_id || (t.completed_at && localDay(t.completed_at) >= recent));
+  const groups = [...state.quests.map((q) => [q.title, pickable.filter((t) => t.quest_id === q.id)]), ["Ohne Quest", pickable.filter((t) => !questById(t.quest_id))]]
+    .filter(([, l]) => l.length);
+  const selected = s?.task_id ?? state.focusTask ?? focusCandidates()[0]?.id;
+  const options = groups.map(([label, l]) => `<optgroup label="${esc(label)}">${sortTasks(l).map((t) =>
+    `<option value="${t.id}" ${t.id === selected ? "selected" : ""}>${esc(t.title)}${t.status === "done" ? " ✓" : ""}</option>`).join("")}</optgroup>`).join("");
+  const body = document.getElementById("dlg-body");
+  body.innerHTML = `<form class="dlg" id="session-form" data-session-id="${s?.id || ""}" autocomplete="off">
+    <div class="dlg-head"><h3>${s ? "Zeiteintrag" : "Zeit nachtragen"}</h3>
+      <button type="button" class="icon-btn" data-close aria-label="Schließen"><span class="icon">close</span></button></div>
+    <div class="form">
+      <label class="f"><span class="icon">task_alt</span><select name="task_id" required aria-label="Aufgabe">${options}</select></label>
+      <label class="f"><span class="icon">event</span><span class="lbl">Datum</span><input type="date" name="date" required value="${isoDate(new Date(startMs))}"></label>
+      <div class="f"><span class="icon">schedule</span><span class="lbl">Zeit</span><div class="pair">
+        <input type="time" name="start" required value="${hhmm(startMs)}" aria-label="Beginn">
+        <input type="time" name="end" required value="${hhmm(endMs)}" aria-label="Ende"></div></div>
+    </div>
+    <div class="form-error" id="form-error" hidden></div>
+    <div class="dlg-actions">
+      ${s ? `<button type="button" class="btn danger" data-delete-session>Löschen</button>` : ""}
+      <span class="spacer"></span>
+      <button type="button" class="btn text" data-close>Abbrechen</button>
+      <button type="submit" class="btn filled">${s ? "Speichern" : "Eintragen"}</button>
+    </div>
+  </form>`;
+  showForm(body);
+}
+
+function submitSession(form) {
+  const f = new FormData(form);
+  const err = document.getElementById("form-error");
+  const date = f.get("date"), start = f.get("start"), end = f.get("end");
+  if (!f.get("task_id")) { err.textContent = "Wähle eine Aufgabe."; err.hidden = false; return; }
+  if (end <= start) { err.textContent = "Das Ende muss nach dem Beginn liegen."; err.hidden = false; return; }
+  const body = { task_id: Number(f.get("task_id")), started_at: `${date}T${start}`, ended_at: `${date}T${end}` };
+  const id = Number(form.dataset.sessionId);
+  document.getElementById("dlg").close();
+  mutate(id ? "PATCH" : "POST", id ? `/api/sessions/${id}` : "/api/sessions", body, id ? "Gespeichert" : "Zeit eingetragen").catch(() => {});
+}
+
+function deleteSession(btn) {
+  if (!btn.classList.contains("armed")) {
+    btn.classList.add("armed");
+    btn.textContent = "Wirklich löschen?";
+    setTimeout(() => { btn.classList.remove("armed"); btn.textContent = "Löschen"; }, 4000);
+    return;
+  }
+  const s = state.sessions.find((x) => x.id === Number(btn.closest("form").dataset.sessionId));
+  document.getElementById("dlg").close();
+  if (!s) return;
+  mutate("DELETE", `/api/sessions/${s.id}`, null, "Eintrag gelöscht", () => mutate("POST", "/api/sessions",
+    { task_id: s.task_id, started_at: s.started_at, ended_at: s.ended_at }, "Rückgängig gemacht")).catch(() => {});
+}
+
+function openTarget() {
+  const body = document.getElementById("dlg-body");
+  body.innerHTML = `<form class="dlg" id="target-form">
+    <div class="dlg-head"><h3>Wochenziel</h3>
+      <button type="button" class="icon-btn" data-close aria-label="Schließen"><span class="icon">close</span></button></div>
+    <p class="muted" style="margin-top:8px">Wie viele Stunden pro Woche willst du an deinen Quests arbeiten?</p>
+    <div class="form"><label class="f"><span class="icon">flag</span>
+      <input type="number" name="hours" min="0.5" max="168" step="0.5" required value="${state.settings.weekly_target_hours}" aria-label="Stunden pro Woche">
+      <span>Stunden</span></label></div>
+    <div class="dlg-actions"><span class="spacer"></span>
+      <button type="button" class="btn text" data-close>Abbrechen</button><button type="submit" class="btn filled">Speichern</button></div>
+  </form>`;
+  showForm(body);
+}
+
+function planToday(id) {
+  saveTask(id, { plan_date: state.today }, "Für heute eingeplant");
+}
+
+// --- Anleitung: die Prinzipien hinter Heute, Planen, Fokus und Rückblick ----
+
+const GUIDE = [
+  {
+    key: "coherence", title: "Vertikale Kohärenz", essence: "Deine Stunden sollten zu deinen großen Zielen passen.",
+    body: [
+      "Man kann den ganzen Tag beschäftigt sein – hundert E-Mails, ein neues Planungsdokument, das System noch einmal optimiert – und trotzdem nicht vorankommen. Kohärenz heißt, von oben nach unten zu denken: Wer willst du sein? Was bringt dich in fünf Jahren dorthin, was dieses Jahr, diesen Monat? Und passt deine Woche dazu?",
+      "Quests sind die Brücke zwischen den Ebenen. Jede Aufgabe zahlt auf eine Quest ein – oder eben nicht. Sonstiges darf sein, kommt aber erst dran, wenn die Quest-Arbeit steht. Passt beides dauerhaft nicht zusammen, musst du entweder deine Ziele ändern oder deinen Alltag.",
+    ],
+    ladder: [
+      ["Vision", "Ein selbstbestimmtes, kreatives Leben"],
+      ["5 Jahre", "Von eigenen Inhalten und Produkten leben"],
+      ["Dieses Jahr", "Den Kanal auf 10.000 Abonnenten bringen"],
+      ["Quest", "Jede Woche ein Video veröffentlichen", true],
+      ["Heute", "Skript für Video #12 schreiben"],
+      ["Jetzt", "Fokus auf das Skript, der Timer läuft"],
+    ],
+    app: "Lege zwei bis vier Quests an und ordne ihnen Aufgaben zu. In „Heute“ steht Quest-Arbeit oben, Sonstiges darunter.",
+    go: ["quests", "Zu den Quests"],
+  },
+  {
+    key: "input", title: "Input-Ziele statt Output-Ziele", essence: "Nimm dir Stunden vor, nicht Ergebnisse.",
+    body: [
+      "Ergebnisse hängen an Dingen, die du nicht steuerst: Rückmeldungen, technische Probleme, Aufwand, der größer ist als gedacht. Wer sich Ergebnisse vornimmt und sie regelmäßig verfehlt, gewöhnt sich ans Verfehlen.",
+      "Die investierte Zeit dagegen liegt ganz bei dir. Dauert es länger, dauert es länger – aber du hast die Stunden investiert, die du dir vorgenommen hast. Daraus wächst Vertrauen in dich selbst.",
+    ],
+    compare: [["Diese Woche die Bachelorarbeit fertig schreiben."], ["Diese Woche 12 Stunden an der Bachelorarbeit."]],
+    app: "Dein Wochenziel für Quest-Stunden stellst du im Rückblick ein – ein Klick auf die Kachel „Quest-Zeit“.",
+    go: ["review", "Zum Rückblick"],
+  },
+  {
+    key: "day", title: "Nach Tag planen, nicht nach Stunde", essence: "Ein Tag braucht eine Reihenfolge, keinen Stundenplan.",
+    body: [
+      "Zeitblöcke sehen in der Zukunft immer machbar aus und haben in der Vergangenheit nie ganz gestimmt. Ein Anruf, eine Verzögerung – und der ganze Plan muss neu sortiert werden. Das sind lauter kleine Misserfolge, jeden Tag.",
+      "Lege Aufgaben stattdessen auf Tage und arbeite sie nach Wichtigkeit ab, so gut es geht. Es dauert, so lange es dauert. Das fühlt sich leichter an und bringt trotzdem mehr.",
+    ],
+    compare: [["Di 9:00–10:30 Angebot · 10:30–12:00 Skript · 13:00 E-Mails"], ["Dienstag: Angebot Müller → Skript Video #12 → E-Mails"]],
+    app: "In „Planen“ ziehst du Aufgaben auf Tage. Quest-Arbeit und hohe Priorität stehen vorn; Unerledigtes rutscht automatisch auf heute.",
+    go: ["plan", "Woche planen"],
+  },
+  {
+    key: "one", title: "Eine Aufgabe zur Zeit", essence: "Sichtbar ist nur, was gerade dran ist.",
+    body: [
+      "Wer beim Arbeiten auf alles schaut, was heute noch ansteht, verliert Kraft für den nächsten Schritt. Im Fokus siehst du deshalb nur eine Aufgabe, deine Notizen dazu und eine Stoppuhr.",
+      "Der Fokus ist eine Warteschlange: Ist die Aufgabe erledigt, kommt die nächste. Und weil immer nur ein Timer läuft, gibt es kein heimliches Multitasking.",
+    ],
+    compare: [["Kalender und Liste offen, nebenbei das Postfach."], ["Nur „Skript für Video #12“ auf dem Schirm. Erledigt → als Nächstes „Thumbnail gestalten“."]],
+    app: "Den Fokus öffnest du oben rechts oder mit ▶ in „Heute“. Die Leertaste startet und pausiert.",
+    go: ["focus", "Fokus öffnen"],
+  },
+  {
+    key: "measure", title: "Messen, wohin die Zeit fließt", essence: "Was du misst, wird besser – ganz ohne Strategie.",
+    body: [
+      "Wer jeden Tag aufschreibt, wie viel er gespart hat, spart automatisch mehr. Mit Zeit ist es genauso: Die ehrliche Zahl verändert dein Verhalten, ohne dass du dir einen Plan ausdenken musst.",
+      "Miss vor allem die Aufgaben, die zählen – die, die deine Quests voranbringen.",
+    ],
+    compare: [["„Ich will schon so lange Französisch lernen.“"], ["„Diesen Monat 6,5 Stunden Französisch – mehr als im letzten.“"]],
+    app: "Der Timer läuft auf dem Server weiter, auch wenn du die Seite schließt oder das Gerät wechselst. Vergessen zu starten? Im Kalender unter „Woche“ trägst du Zeit nach.",
+    go: ["today", "Zu Heute"],
+  },
+  {
+    key: "done", title: "Done-Liste statt To-do-Liste", essence: "Schau zurück auf den Berg, den du schon erklommen hast.",
+    body: [
+      "Eine To-do-Liste zeigt immer, was fehlt. Eine Done-Liste zeigt, was du geschafft hast – und genau das spornt an.",
+      "Der Kalender wird so vom Versprechen zum Logbuch: Er zeigt keine geplanten Blöcke, sondern die Zeit, die du wirklich gearbeitet hast. Nebenbei entstehen echte Daten über deine Arbeit.",
+    ],
+    compare: [["Ein Kalender voller Blöcke für morgen."], ["Logbuch von heute: 8:30 Skript (1:15 h) · 9:50 E-Mails (30 min) · 13:00 Angebot (1:10 h)"]],
+    app: "Die Zeitleiste in „Heute“, die Gruppe „Heute erledigt“ und der Kalender in der Wochenansicht.",
+    go: ["calendar-week", "Zum Logbuch"],
+  },
+  {
+    key: "ritual", title: "Ein festes Reflexionsritual", essence: "Die wichtigste Gewohnheit ist, die eigenen Gewohnheiten zu prüfen.",
+    body: [
+      "Einmal pro Woche, zum Beispiel sonntags für zwanzig Minuten: Schau dir deine Woche an. Was ist gut gelaufen, was nicht – und warum? Was verbesserst du systematisch?",
+      "Noch wirksamer wird es mit jemandem, dem du deine Zahlen zeigst – ein Freund, eine Partnerin, ein Coach. Hauptsache, ihr nehmt es ernst.",
+    ],
+    questions: [
+      "Wie viele Quest-Stunden waren es – und wie viel vom Ziel?",
+      "Wohin ist der Rest meiner Zeit geflossen?",
+      "Was lief gut, was nicht – und warum?",
+      "Was ändere ich nächste Woche: mein Ziel oder meinen Alltag?",
+    ],
+    app: "Der Rückblick zeigt Quest-Zeit, Anteil, Tage und die letzten zwölf Wochen – die Grundlage für dein Ritual.",
+    go: ["review", "Zum Rückblick"],
+  },
+];
+
+const RECIPE = [
+  "Plane nach Tag, nicht nach Stunde – und bring die Aufgaben in eine Reihenfolge.",
+  "Arbeite an einer Aufgabe zur Zeit.",
+  "Miss die Zeit an den Aufgaben, die zählen.",
+  "Schau auf das Erledigte, nicht auf den Berg.",
+  "Reflektiere jede Woche zur gleichen Zeit.",
+  "Setz dir Input-Ziele und sorg für vertikale Kohärenz.",
+];
+
+const hintsOn = () => store.get("todo.hints") !== "off";
+
+/** Dezenter Verweis auf ein Prinzip; öffnet die Anleitung an dieser Stelle. */
+const hint = (key, text) => hintsOn()
+  ? `<button class="hint-link" data-guide="${key}" title="Prinzip: ${esc(GUIDE.find((p) => p.key === key).title)}"><span class="icon">lightbulb</span><span>${esc(text)}</span></button>` : "";
+
+function guideSection(p, i) {
+  const compare = p.compare ? `<div class="compare">
+      <div class="worse"><div class="k">Statt</div><p>${esc(p.compare[0][0])}</p></div>
+      <div class="better"><div class="k"><span class="icon">arrow_forward</span>Lieber</div><p>${esc(p.compare[1][0])}</p></div></div>` : "";
+  const ladder = p.ladder ? `<ol class="ladder">${p.ladder.map(([lvl, what, quest]) =>
+      `<li class="${quest ? "quest" : ""}"><span class="lvl">${esc(lvl)}</span><span class="what">${esc(what)}</span></li>`).join("")}</ol>` : "";
+  const questions = p.questions ? `<ol class="questions">${p.questions.map((q) => `<li>${esc(q)}</li>`).join("")}</ol>` : "";
+  return `<section class="principle" id="p-${p.key}">
+    <div class="num">Prinzip ${i + 1}</div>
+    <h2>${esc(p.title)}</h2>
+    <p class="essence">${esc(p.essence)}</p>
+    ${p.body.map((t) => `<p>${esc(t)}</p>`).join("")}
+    ${ladder}${compare}${questions}
+    <div class="in-app"><span class="icon">lightbulb</span><span>${esc(p.app)}</span>
+      <button class="btn outlined" data-guide-go="${p.go[0]}">${esc(p.go[1])}<span class="icon">arrow_forward</span></button></div>
+  </section>`;
+}
+
+function renderGuide() {
+  const flow = [["plan", "view_week", "Planen"], ["today", "wb_sunny", "Heute & Fokus"], ["calendar-week", "calendar_month", "Logbuch"], ["review", "insights", "Rückblick"]];
+  document.getElementById("guide-body").innerHTML = `
+    <div class="guide-top"><button class="icon-btn" data-guide-close aria-label="Schließen" title="Schließen (Esc)"><span class="icon">arrow_back</span></button>
+      <span class="label">Prinzipien</span></div>
+    <div class="guide-wrap">
+      <div class="guide-hero">
+        <div class="num">Anleitung</div>
+        <h1>Mit Absicht statt nach Stundenplan.</h1>
+        <p>Diese App folgt einer einfachen Idee: Plane deine Tage, nicht deine Stunden. Arbeite an einer Sache zur Zeit.
+          Und miss, wie viel deiner Zeit in das fließt, was dir wirklich wichtig ist.</p>
+        <div class="flow">${flow.map(([go, icon, label], i) => `${i ? `<span class="icon arrow">arrow_forward</span>` : ""}
+          <button class="flow-step" data-guide-go="${go}"><span class="icon">${icon}</span>${label}</button>`).join("")}</div>
+        <nav class="toc" aria-label="Inhalt">${GUIDE.map((p, i) => `<button data-guide="${p.key}"><span class="n">${i + 1}</span>${esc(p.title)}</button>`).join("")}</nav>
+      </div>
+      ${GUIDE.map(guideSection).join("")}
+      <section class="recipe">
+        <div class="num">Kurzfassung</div>
+        <h2>Das Rezept</h2>
+        <ul>${RECIPE.map((r) => `<li><span class="icon">check</span>${esc(r)}</li>`).join("")}</ul>
+      </section>
+      <footer class="guide-foot">
+        <label class="switch"><input type="checkbox" id="hints-toggle" ${hintsOn() ? "checked" : ""}><span></span>Kleine Hinweise in der App anzeigen</label>
+        <span>Inspiriert von der Quest-App · quest.app</span>
+      </footer>
+    </div>`;
+  document.getElementById("hints-toggle").addEventListener("change", (e) => {
+    store.set("todo.hints", e.target.checked ? "on" : "off");
+    render();
+  });
+}
+
+function openGuide(key) {
+  const dlg = document.getElementById("guide");
+  store.set("todo.guideSeen", "1");
+  if (!dlg.open) {
+    document.getElementById("dlg").close();
+    document.getElementById("focus").close();
+    renderGuide();
+    dlg.showModal();
+  }
+  const target = key && document.getElementById("p-" + key);
+  if (target) target.scrollIntoView({ block: "start" });
+  else dlg.scrollTop = 0;
+}
+
+/** Aus der Anleitung an die passende Stelle der App springen. */
+function guideGo(where) {
+  document.getElementById("guide").close();
+  if (where === "focus") return openFocus();
+  if (where === "calendar-week") { state.calMode = "week"; store.set("todo.calMode", "week"); return setView("calendar"); }
+  setView(where);
+}
+
+// --- Neue Aufgabe: Beschreiben, KI legt an ---------------------------------
+
+const COMPOSE_EXAMPLES = [
+  "Bis Freitag das Angebot für Müller fertig machen, vorher mit Lisa die Preise klären. Morgen fang ich an.",
+  "Zahnarzt anrufen und irgendwann die Steuerunterlagen sortieren",
+  "Nächste Woche Skript für Video #13 schreiben, gehört zu meiner Video-Quest",
+];
+let agentConfig = null;
+
+async function loadAgentConfig() {
+  try { agentConfig = await call("GET", "/api/agent/config"); } catch { agentConfig = null; }
+  return agentConfig;
+}
+
+async function openComposer(text = "") {
+  const body = document.getElementById("dlg-body");
+  const cfg = agentConfig || (await loadAgentConfig());
+  const ready = cfg?.ready;
+  const providerLabel = cfg ? cfg.providers[cfg.provider]?.label : "";
+  body.innerHTML = `<form class="dlg composer" id="agent-form" autocomplete="off">
+    <div class="dlg-head"><h3>Neue Aufgabe</h3>
+      <button type="button" class="icon-btn" data-close aria-label="Schließen"><span class="icon">close</span></button></div>
+    <textarea class="notes-input compose-input" name="text" maxlength="4000" required
+      placeholder="Beschreib, was zu tun ist – so, wie du es jemandem erzählen würdest.">${esc(text)}</textarea>
+    <div class="examples">${COMPOSE_EXAMPLES.map((x) => `<button type="button" class="chip" data-example="${esc(x)}">${esc(x)}</button>`).join("")}</div>
+    <div class="agent-meta">${ready
+      ? `<span class="icon fill">auto_awesome</span><span>${esc(cfg.model)} · ${esc(providerLabel)} füllt Titel, Beschreibung, Termine, Projekt und Quest aus.</span>`
+      : `<span class="icon">auto_awesome</span><span>Ohne KI wird die erste Zeile zum Titel, der Rest zur Beschreibung.</span>`}
+      <button type="button" class="link-btn" data-settings="agent">${ready ? "Ändern" : "KI einrichten"}</button></div>
+    <div class="form-error" id="form-error" hidden></div>
+    <div class="dlg-actions">
+      ${ready ? `<button type="button" class="btn text" data-manual>Ohne KI anlegen</button>` : ""}
+      <span class="spacer"></span>
+      <button type="button" class="btn text" data-close>Abbrechen</button>
+      <button type="submit" class="btn filled" id="compose-submit">${ready ? `<span class="icon">auto_awesome</span>Anlegen` : "Anlegen"}</button>
+    </div>
+  </form>`;
+  const input = body.querySelector("textarea");
+  input.addEventListener("keydown", (e) => { if (e.key === "Enter" && (e.metaKey || e.ctrlKey)) { e.preventDefault(); input.form.requestSubmit(); } });
+  const dlg = document.getElementById("dlg");
+  if (!dlg.open) dlg.showModal();
+  input.focus();
+}
+
+/** Angelegte Aufgaben sofort zeigen; das Live-Ereignis bestätigt sie kurz darauf. */
+function mergeTasks(tasks) {
+  for (const t of tasks) if (!taskById(t.id)) state.tasks.push(t);
+  render();
+}
+
+async function submitCompose(form, useAgent) {
+  const text = form.text.value.trim();
+  const err = document.getElementById("form-error");
+  if (!text) { err.textContent = "Beschreib zuerst, was zu tun ist."; err.hidden = false; return; }
+  const btn = document.getElementById("compose-submit");
+  for (const b of form.querySelectorAll("button")) b.disabled = true;
+  err.hidden = true;
+  let reply, tasks;
+  try {
+    if (useAgent) {
+      btn.innerHTML = `<span class="spinner"></span>Wird angelegt …`;
+      ({ reply, tasks } = await call("POST", "/api/agent", { text }));
+    } else {
+      const [first, ...rest] = text.split("\n");
+      tasks = [await call("POST", "/api/tasks", { title: first.trim().slice(0, 200), notes: rest.join("\n").trim() })];
+      reply = "Aufgabe angelegt.";
+    }
+  } catch (e) {
+    for (const b of form.querySelectorAll("button")) b.disabled = false;
+    btn.innerHTML = useAgent ? `<span class="icon">auto_awesome</span>Anlegen` : "Anlegen";
+    err.textContent = e.message;
+    err.hidden = false;
+    return;
+  }
+  mergeTasks(tasks);
+  showComposeResult(reply, tasks, text);
+}
+
+function showComposeResult(reply, tasks, text) {
+  const body = document.getElementById("dlg-body");
+  body.innerHTML = `<div class="dlg composer" data-created="${tasks.map((t) => t.id).join(",")}">
+    <div class="dlg-head"><h3>${tasks.length === 1 ? "Aufgabe angelegt" : `${tasks.length} Aufgaben angelegt`}</h3>
+      <button type="button" class="icon-btn" data-close aria-label="Schließen"><span class="icon">close</span></button></div>
+    ${reply ? `<p class="agent-reply"><span class="icon fill">auto_awesome</span>${esc(reply)}</p>` : ""}
+    <div class="panel created">${tasks.map((t) => row(taskById(t.id) || t)).join("")}</div>
+    <p class="muted" style="margin-top:10px">Zum Bearbeiten antippen.</p>
+    <div class="dlg-actions">
+      <button type="button" class="btn danger" data-agent-undo>Rückgängig</button>
+      <span class="spacer"></span>
+      <button type="button" class="btn text" data-compose-again>Noch eine</button>
+      <button type="button" class="btn filled" data-close>Fertig</button>
+    </div></div>`;
+  body.querySelector("[data-agent-undo]").dataset.text = text;
+}
+
+async function undoCompose(btn) {
+  const ids = btn.closest("[data-created]").dataset.created.split(",").map(Number);
+  document.getElementById("dlg").close();
+  try {
+    await Promise.all(ids.map((id) => api("DELETE", id)));
+    state.tasks = state.tasks.filter((t) => !ids.includes(t.id));
+    render();
+    const text = btn.dataset.text;
+    snackbar(ids.length === 1 ? "Aufgabe entfernt" : "Aufgaben entfernt", () => openComposer(text), "Text bearbeiten");
+  } catch (e) {
+    snackbar("Nicht entfernt: " + e.message);
+  }
+}
+
+// --- Einstellungen ------------------------------------------------------------
+
+async function openSettings(focus) {
+  const [cfg, sec] = await Promise.all([loadAgentConfig(), call("GET", "/api/security").catch(() => null)]);
+  if (!cfg || !sec) return snackbar("Einstellungen konnten nicht geladen werden");
+  const sub = pushSupported ? await currentSubscription().catch(() => null) : null;
+  const body = document.getElementById("dlg-body");
+  const providers = cfg ? Object.entries(cfg.providers) : [];
+  body.innerHTML = `<div class="dlg settings">
+    <div class="dlg-head"><h3>Einstellungen</h3>
+      <button type="button" class="icon-btn" data-close aria-label="Schließen"><span class="icon">close</span></button></div>
+
+    <form class="set-section" id="agent-config" autocomplete="off">
+      <h4><span class="icon">auto_awesome</span>KI-Assistent</h4>
+      <p class="muted">Beschreib Aufgaben in eigenen Worten – ein Sprachmodell deiner Wahl legt sie vollständig an.</p>
+      <div class="form">
+        <label class="f"><span class="lbl">Anbieter</span><select name="provider">${providers.map(([k, p]) =>
+          `<option value="${k}" ${k === cfg.provider ? "selected" : ""}>${esc(p.label)}</option>`).join("")}</select></label>
+        <label class="f" id="base-url-row"><span class="lbl">Endpunkt</span><input name="base_url" value="${esc(cfg?.base_url || "")}" placeholder="https://…/v1"></label>
+        <label class="f"><span class="lbl">API-Key</span><input name="api_key" type="password" autocomplete="off"
+          placeholder="${cfg?.has_key ? `hinterlegt (…${esc(cfg.key_hint)}) – leer lassen zum Behalten` : "API-Key einfügen"}"></label>
+        <div class="f"><span class="lbl">Modell</span><input name="model" list="model-list" value="${esc(cfg?.model || "")}" placeholder="z. B. über „Modelle laden“">
+          <button type="button" class="btn text" data-load-models>Modelle laden</button></div>
+        <datalist id="model-list"></datalist>
+      </div>
+      <div class="set-status" id="agent-status">${cfg?.ready ? `<span class="icon fill">check_circle</span>Eingerichtet` : ""}</div>
+      <p class="fine">Der Key wird verschlüsselt auf dem Server gespeichert und nie an den Browser zurückgegeben.
+        Beim Anlegen gehen deine Beschreibung sowie Namen von Projekten, Tags und Quests an den gewählten Anbieter.</p>
+      <div class="dlg-actions">
+        ${cfg?.has_key ? `<button type="button" class="btn danger" data-clear-key>Key entfernen</button>` : ""}
+        <span class="spacer"></span><button type="submit" class="btn filled">Speichern</button></div>
+    </form>
+
+    <section class="set-section">
+      <h4><span class="icon">extension</span>Skill für deine Claude-Apps</h4>
+      <p class="muted">Damit Claude auch in claude.ai, der Desktop- und Handy-App oder in Claude Code Aufgaben genauso anlegt –
+        mit Beschreibung, Terminen, Projekt und Quest. Der todo-Connector muss dort verbunden sein.</p>
+      <ol class="steps">
+        <li><b>claude.ai / Desktop / Handy:</b> ZIP in den Einstellungen unter <i>Fähigkeiten → Skills</i> hochladen.</li>
+        <li><b>Claude Code:</b> ZIP nach <code>~/.claude/skills/</code> entpacken.</li>
+      </ol>
+      <div class="dlg-actions"><span class="spacer"></span>
+        <a class="btn outlined" href="/skill/aufgaben-anlegen.zip" download><span class="icon">download</span>Skill herunterladen</a></div>
+    </section>
+
+    <section class="set-section">
+      <h4><span class="icon">notifications</span>Benachrichtigungen</h4>
+      <div class="set-row"><span class="muted">${!pushSupported ? "In diesem Browser nicht verfügbar" : sub ? "Auf diesem Gerät aktiv" : "Auf diesem Gerät aus"}</span>
+        <button type="button" class="btn outlined" data-open-notify>Einstellen</button></div>
+    </section>
+
+    <section class="set-section">
+      <h4><span class="icon">lightbulb</span>Hinweise & Anleitung</h4>
+      <div class="set-row"><label class="switch"><input type="checkbox" id="hints-setting" ${hintsOn() ? "checked" : ""}><span></span>Kleine Hinweise in der App</label>
+        <button type="button" class="btn outlined" data-guide="">Anleitung</button></div>
+    </section>
+
+    ${securitySection(sec)}
+
+    <section class="set-section">
+      <h4><span class="icon">logout</span>Konto</h4>
+      <div class="set-row"><span class="muted">Auf diesem Gerät abmelden.</span>
+        <form method="post" action="/logout" style="margin:0"><button class="btn outlined">Abmelden</button></form></div>
+    </section>
+  </div>`;
+
+  const form = document.getElementById("agent-config");
+  const syncProvider = (reset) => {
+    const p = cfg.providers[form.provider.value];
+    document.getElementById("base-url-row").hidden = form.provider.value !== "custom";
+    if (reset) {
+      form.base_url.value = p.base_url;
+      form.model.value = p.model;
+      form.api_key.placeholder = form.provider.value === cfg.provider && cfg.has_key ? `hinterlegt (…${cfg.key_hint}) – leer lassen zum Behalten` : "API-Key einfügen";
+      document.getElementById("model-list").innerHTML = "";
+    }
+  };
+  form.provider.addEventListener("change", () => syncProvider(true));
+  syncProvider(false);
+  document.getElementById("hints-setting").addEventListener("change", (e) => { store.set("todo.hints", e.target.checked ? "on" : "off"); render(); });
+  const dlg = document.getElementById("dlg");
+  if (!dlg.open) dlg.showModal();
+  if (focus === "agent") (cfg?.has_key ? form.model : form.api_key).focus();
+}
+
+function agentStatus(html, ok) {
+  const el = document.getElementById("agent-status");
+  el.className = "set-status " + (ok ? "" : "bad");
+  el.innerHTML = html;
+}
+
+async function loadModels(btn) {
+  const form = btn.closest("form");
+  btn.disabled = true;
+  agentStatus(`<span class="spinner"></span>Frage Modelle ab …`, true);
+  try {
+    const { models } = await call("POST", "/api/agent/models", { provider: form.provider.value, base_url: form.base_url.value, api_key: form.api_key.value || null });
+    document.getElementById("model-list").innerHTML = models.map((m) => `<option value="${esc(m)}">`).join("");
+    if (!form.model.value && models.length) form.model.value = models[0];
+    agentStatus(`<span class="icon fill">check_circle</span>Verbindung ok – ${models.length} Modelle. Feld „Modell“ antippen für die Auswahl.`, true);
+  } catch (e) {
+    agentStatus(`<span class="icon">error</span>${esc(e.message)}`, false);
+  } finally {
+    btn.disabled = false;
+  }
+}
+
+async function saveAgentConfig(form, clearKey = false) {
+  try {
+    agentConfig = await call("PUT", "/api/agent/config", {
+      provider: form.provider.value, base_url: form.base_url.value, model: form.model.value,
+      api_key: form.api_key.value || null, clear_key: clearKey,
+    });
+    form.api_key.value = "";
+    snackbar(clearKey ? "API-Key entfernt" : agentConfig.ready ? "KI-Assistent eingerichtet" : "Gespeichert – es fehlt noch " + (agentConfig.has_key ? "ein Modell" : "ein API-Key"));
+    openSettings();
+  } catch (e) {
+    agentStatus(`<span class="icon">error</span>${esc(e.message)}`, false);
+  }
+}
+
+// --- Sicherheit: Zwei-Faktor-Anmeldung --------------------------------------
+
+function securitySection(sec) {
+  const status = sec.two_factor
+    ? `<div class="set-row"><span class="set-status"><span class="icon fill">verified_user</span>Zwei-Faktor-Anmeldung aktiv · ${sec.recovery_left} Wiederherstellungscodes übrig</span></div>
+       <div class="set-row"><button type="button" class="btn text" data-tfa="codes">Neue Wiederherstellungscodes</button>
+         <button type="button" class="btn danger" data-tfa="disable">Ausschalten</button></div>`
+    : `<p class="muted">Zusätzlich zum Key ein Einmalcode aus einer Authenticator-App – etwa Google Authenticator, 1Password oder Aegis.</p>
+       <div class="set-row"><span class="muted">Aus</span><button type="button" class="btn outlined" data-tfa="setup">Einrichten</button></div>`;
+  return `<section class="set-section">
+    <h4><span class="icon">shield</span>Sicherheit</h4>
+    ${status}
+    <div class="set-row"><span class="muted">Alle anderen Browser abmelden und alle Claude-Verbindungen trennen.</span>
+      <button type="button" class="btn outlined" data-logout-all>Überall abmelden</button></div>
+  </section>`;
+}
+
+const tfaHead = (title) => `<div class="dlg-head"><h3>${title}</h3>
+  <button type="button" class="icon-btn" data-settings="" aria-label="Zurück zu den Einstellungen"><span class="icon">arrow_back</span></button></div>`;
+
+const RECONNECT_NOTE = `<div class="warn"><span class="icon">info</span><div>
+  Beim Einschalten werden alle anderen Browser abgemeldet und alle Claude-Verbindungen getrennt.
+  <b>claude.ai, Desktop & Handy:</b> Connector einmal neu verbinden – die Freigabeseite fragt dann Key und Code ab.
+  <b>Claude Code:</b> Der Key als fester Header funktioniert mit 2FA nicht mehr (er wäre sonst ein Weg daran vorbei).
+  Stattdessen per OAuth verbinden: <code>claude mcp add --transport http --scope user todo ${esc(location.origin)}/mcp</code>,
+  dann in Claude Code <code>/mcp</code> → Authentifizieren.</div></div>`;
+
+async function startTwoFactor() {
+  const body = document.getElementById("dlg-body");
+  let data;
+  try { data = await call("POST", "/api/security/2fa-setup", {}); } catch (e) { return snackbar(e.message); }
+  const grouped = data.secret.match(/.{1,4}/g).join(" ");
+  body.innerHTML = `<form class="dlg settings" id="tfa-enable" autocomplete="off">
+    ${tfaHead("Zwei-Faktor-Anmeldung einrichten")}
+    <ol class="tfa-steps">
+      <li><b>QR-Code mit der Authenticator-App scannen.</b>
+        <div class="qr">${data.qr_svg}</div>
+        <div class="muted">Oder den Schlüssel von Hand eingeben: <code class="secret">${esc(grouped)}</code></div></li>
+      <li><b>Den 6-stelligen Code aus der App eingeben.</b>
+        <div class="form"><label class="f"><span class="icon">pin</span><input name="code" inputmode="numeric" autocomplete="one-time-code"
+          maxlength="7" required placeholder="123456"></label></div></li>
+    </ol>
+    ${RECONNECT_NOTE}
+    <div class="form-error" id="form-error" hidden></div>
+    <div class="dlg-actions"><span class="spacer"></span>
+      <button type="button" class="btn text" data-settings="">Abbrechen</button>
+      <button type="submit" class="btn filled">Aktivieren</button></div>
+  </form>`;
+  body.querySelector("input[name=code]").focus();
+}
+
+function showRecoveryCodes(codes, title) {
+  const body = document.getElementById("dlg-body");
+  body.innerHTML = `<div class="dlg settings">
+    ${tfaHead(title)}
+    <p class="muted">Bewahre diese Codes sicher auf, zum Beispiel in deinem Passwort-Manager. Jeder Code funktioniert
+      einmal anstelle des Codes aus der App – falls du dein Handy verlierst. Sie werden nur jetzt angezeigt.</p>
+    <div class="codes">${codes.map((c) => `<code>${esc(c)}</code>`).join("")}</div>
+    <div class="dlg-actions">
+      <button type="button" class="btn text" data-copy-codes="${esc(codes.join("\n"))}"><span class="icon">content_copy</span>Kopieren</button>
+      <span class="spacer"></span>
+      <button type="button" class="btn filled" data-settings="">Ich habe sie gesichert</button></div>
+  </div>`;
+}
+
+function askCode(action) {
+  const body = document.getElementById("dlg-body");
+  const disable = action === "disable";
+  body.innerHTML = `<form class="dlg settings" id="tfa-code" data-action="${disable ? "2fa-disable" : "recovery-codes"}" autocomplete="off">
+    ${tfaHead(disable ? "Zwei-Faktor-Anmeldung ausschalten" : "Neue Wiederherstellungscodes")}
+    <p class="muted">${disable ? "Danach reicht wieder der Key allein – auch als fester Header für Claude Code."
+      : "Die alten Wiederherstellungscodes werden dabei ungültig."} Zur Bestätigung den aktuellen Code aus der App
+      (oder einen Wiederherstellungscode) eingeben.</p>
+    <div class="form"><label class="f"><span class="icon">pin</span><input name="code" autocomplete="one-time-code" maxlength="20" required placeholder="Code"></label></div>
+    <div class="form-error" id="form-error" hidden></div>
+    <div class="dlg-actions"><span class="spacer"></span>
+      <button type="button" class="btn text" data-settings="">Abbrechen</button>
+      <button type="submit" class="btn ${disable ? "danger armed" : "filled"}">${disable ? "Ausschalten" : "Erzeugen"}</button></div>
+  </form>`;
+  body.querySelector("input").focus();
+}
+
+async function submitTwoFactor(form) {
+  const err = document.getElementById("form-error");
+  const action = form.id === "tfa-enable" ? "2fa-enable" : form.dataset.action;
+  for (const b of form.querySelectorAll("button")) b.disabled = true;
+  try {
+    const data = await call("POST", `/api/security/${action}`, { code: form.code.value });
+    if (action === "2fa-enable") return showRecoveryCodes(data.recovery_codes, "Zwei-Faktor-Anmeldung ist aktiv");
+    if (action === "recovery-codes") return showRecoveryCodes(data.recovery_codes, "Neue Wiederherstellungscodes");
+    snackbar("Zwei-Faktor-Anmeldung ausgeschaltet");
+    openSettings();
+  } catch (e) {
+    for (const b of form.querySelectorAll("button")) b.disabled = false;
+    err.textContent = e.message;
+    err.hidden = false;
+    form.code.select();
+  }
+}
+
+async function logoutEverywhere(btn) {
+  if (!btn.classList.contains("armed")) {
+    btn.classList.add("armed", "danger");
+    btn.textContent = "Wirklich überall abmelden?";
+    setTimeout(() => { btn.classList.remove("armed", "danger"); btn.textContent = "Überall abmelden"; }, 4000);
+    return;
+  }
+  try {
+    await call("POST", "/api/security/logout-all", {});
+    snackbar("Überall abgemeldet – Claude-Connectors bitte neu verbinden");
+    openSettings();
+  } catch (e) {
+    snackbar(e.message);
+  }
+}
+
+// --- Ziehen (Board: Status, Kalender: Datum, Planen: Tag) -------------------------------
+
+const drag = { el: null, id: null, x0: 0, y0: 0, dx: 0, dy: 0, type: "", active: false, timer: 0, ghost: null, target: null, suppressClick: false, renderPending: false };
+
+function dropTargetAt(x, y) {
+  const el = document.elementFromPoint(x, y);
+  return el ? el.closest("[data-drop-status], .day[data-day], [data-drop-plan]") : null;
+}
+
+function startDrag(x, y) {
+  clearTimeout(drag.timer);
+  if (!drag.el || !document.body.contains(drag.el)) return resetDrag();
+  drag.active = true;
+  const rect = drag.el.getBoundingClientRect();
+  drag.dx = x - rect.left; drag.dy = y - rect.top;
+  const ghost = drag.el.cloneNode(true);
+  ghost.classList.add("drag-ghost");
+  ghost.removeAttribute("data-drag");
+  ghost.style.width = Math.min(rect.width, 320) + "px";
+  document.body.appendChild(ghost);
+  drag.ghost = ghost;
+  drag.el.classList.add("drag-source");
+  document.body.classList.add("dragging");
+  navigator.vibrate?.(12);
+  moveDrag(x, y);
+}
+
+function moveDrag(x, y) {
+  drag.ghost.style.transform = `translate(${x - drag.dx}px, ${y - drag.dy}px) rotate(2deg)`;
+  const target = dropTargetAt(x, y);
+  if (target !== drag.target) {
+    drag.target?.classList.remove("drop-target");
+    target?.classList.add("drop-target");
+    drag.target = target;
+  }
+  // Am Rand mitscrollen (Board auf dem Handy horizontal, Seite vertikal)
+  const board = document.querySelector(".board");
+  if (board && board.scrollWidth > board.clientWidth) {
+    if (x < 40) board.scrollLeft -= 14; else if (x > innerWidth - 40) board.scrollLeft += 14;
+  }
+  if (y < 80) scrollBy(0, -14); else if (y > innerHeight - 60) scrollBy(0, 14);
+}
+
+function finishDrag() {
+  const t = state.tasks.find((x) => x.id === drag.id);
+  const target = drag.target;
+  resetDrag();
+  drag.suppressClick = true;
+  setTimeout(() => { drag.suppressClick = false; }, 50);
+  if (!t || !target) return;
+  const status = target.dataset.dropStatus;
+  const day = target.dataset.day;
+  if (status && status !== t.status) saveTask(t.id, { status }, `Verschoben nach „${STATUS[status].label}“`);
+  if (day && day !== t.due_date) saveTask(t.id, { due_date: day }, `Verschoben auf ${longDate(day)}`);
+  const plan = target.dataset.dropPlan;
+  if (plan !== undefined && plan !== (t.plan_date || "")) {
+    saveTask(t.id, { plan_date: plan }, plan ? `Eingeplant für ${relDay(plan)}` : "Aus dem Plan genommen");
+  }
+}
+
+function resetDrag() {
+  clearTimeout(drag.timer);
+  drag.ghost?.remove();
+  drag.el?.classList.remove("drag-source");
+  drag.target?.classList.remove("drop-target");
+  document.body.classList.remove("dragging");
+  const pending = drag.renderPending;
+  Object.assign(drag, { el: null, id: null, active: false, ghost: null, target: null, renderPending: false });
+  if (pending) render();
+}
+
+document.addEventListener("pointerdown", (e) => {
+  const el = e.target.closest("[data-drag]");
+  if (!el || e.button > 0 || e.target.closest("[data-toggle]")) return;
+  Object.assign(drag, { el, id: Number(el.dataset.drag), x0: e.clientX, y0: e.clientY, type: e.pointerType, active: false });
+  // Touch: erst nach langem Drücken ziehen, damit normales Scrollen funktioniert
+  if (e.pointerType !== "mouse") drag.timer = setTimeout(() => startDrag(drag.x0, drag.y0), 380);
+});
+document.addEventListener("pointermove", (e) => {
+  if (!drag.el) return;
+  if (drag.active) return moveDrag(e.clientX, e.clientY);
+  const dist = Math.hypot(e.clientX - drag.x0, e.clientY - drag.y0);
+  if (drag.type === "mouse" && dist > 6) startDrag(e.clientX, e.clientY);
+  else if (drag.type !== "mouse" && dist > 10) resetDrag();
+});
+document.addEventListener("pointerup", () => { if (drag.active) finishDrag(); else resetDrag(); });
+document.addEventListener("pointercancel", () => { if (!drag.active) resetDrag(); });
+document.addEventListener("touchmove", (e) => {
+  if (!drag.active) return;
+  e.preventDefault();
+  const p = e.touches[0];
+  if (p) moveDrag(p.clientX, p.clientY);
+}, { passive: false });
+document.addEventListener("touchend", () => { if (drag.active) finishDrag(); });
+document.addEventListener("contextmenu", (e) => { if (drag.active || drag.timer && drag.el) e.preventDefault(); });
+
+// --- Daten ----------------------------------------------------------------
+
+// ETag "<version>-<datum>": die Version zählt jede Schreiboperation auf dem Server
+const etagVersion = (etag) => parseInt(String(etag).slice(1), 10) || 0;
+
+async function load() {
+  try {
+    const res = await fetch("/api/tasks", { headers: state.etag ? { "If-None-Match": state.etag } : {}, cache: "no-store" });
+    if (res.status === 401) { location.href = "/login"; return; }
+    if (res.status === 304) return setSync();
+    if (!res.ok) throw new Error(res.status);
+    const data = await res.json();
+    const etag = res.headers.get("ETag");
+    setSync();
+    if (state.pending) return; // laufende Änderung nicht mit älterem Stand überschreiben
+    if (etagVersion(etag) < etagVersion(state.etag) && data.today === state.today) return; // Live-Ereignis war schneller
+    state.etag = etag;
+    state.tasks = data.tasks;
+    state.quests = data.quests;
+    state.sessions = data.sessions;
+    state.settings = data.settings;
+    state.today = data.today;
+    state.clockOffset = Date.parse(data.now) - Date.now();
+    render();
+    if (state.openAfterLoad) { const id = state.openAfterLoad; state.openAfterLoad = null; openTask(id); }
+    if (!store.get("todo.guideSeen")) {
+      store.set("todo.guideSeen", "1");
+      snackbar("Neu: die Prinzipien hinter Heute, Planen und Fokus", () => openGuide(), "Ansehen");
+    }
+  } catch {
+    setSync(false);
+  }
+}
+
+// --- Echtzeit (Server-Sent Events) ------------------------------------------
+// Jede Änderung – hier, auf dem Handy oder durch Claude – schickt der Server sofort als Ereignis
+// mit den geänderten Zeilen. Ohne Verbindung fällt die Seite auf Abfragen alle 10 s zurück.
+
+let events = null;
+const liveOk = () => events?.readyState === EventSource.OPEN;
+
+function setSync(reachable = true) {
+  const sync = document.getElementById("sync");
+  const live = reachable && liveOk();
+  sync.classList.toggle("stale", !live);
+  sync.title = live ? "Live verbunden" : reachable ? "Verbinde live …" : "Offline – letzte Daten werden angezeigt";
+}
+
+function connectLive() {
+  events?.close();
+  const source = (events = new EventSource("/api/events"));
+  source.onopen = () => { setSync(); load(); }; // nach (Wieder-)Verbindung Verpasstes holen
+  source.onmessage = (e) => applyChanges(JSON.parse(e.data));
+  source.onerror = () => {
+    setSync(navigator.onLine);
+    // Bei Fehlerantworten (z. B. abgelaufene Anmeldung) gibt EventSource auf; dann selbst neu versuchen
+    if (source.readyState === EventSource.CLOSED) setTimeout(() => { if (events === source) { load(); connectLive(); } }, 5000);
+  };
+}
+
+const ORDER = {
+  tasks: (a, b) => a.id - b.id,
+  quests: (a, b) => (a.status === "completed") - (b.status === "completed") || a.id - b.id,
+  sessions: (a, b) => sessStart(a) - sessStart(b),
+};
+
+function applyChanges(data) {
+  if (!state.today || etagVersion(data.etag) < etagVersion(state.etag)) return; // Erstladen läuft noch bzw. schon neuer
+  for (const key of Object.keys(ORDER)) {
+    const rows = data[key] || [], gone = data.deleted[key] || [];
+    if (!rows.length && !gone.length) continue;
+    const drop = new Set([...gone, ...rows.map((r) => r.id)]);
+    // Vorläufige Einträge (negative IDs, z. B. ein gerade gestarteter Timer) ersetzt der Server
+    state[key] = [...state[key].filter((x) => !drop.has(x.id) && x.id > 0), ...rows].sort(ORDER[key]);
+  }
+  if (data.settings) state.settings = data.settings;
+  state.etag = data.etag;
+  render();
+}
+
+/** Nach eigenen Änderungen: live kommt das Ergebnis als Ereignis, sonst selbst nachladen. */
+function resync() {
+  if (liveOk()) return;
+  state.etag = null;
+  return load();
+}
+
+
+// --- App & Benachrichtigungen ---------------------------------------------
+
+const pushSupported = "serviceWorker" in navigator && "PushManager" in window && "Notification" in window;
+let swReady = null;
+if ("serviceWorker" in navigator) {
+  swReady = navigator.serviceWorker.register("/sw.js").then(() => navigator.serviceWorker.ready).catch(() => null);
+  navigator.serviceWorker.addEventListener("message", (e) => {
+    if (e.data?.type === "open") { location.hash = new URL(e.data.url).hash; openFromHash(); }
+  });
+}
+
+const b64ToBytes = (b64) => {
+  const raw = atob((b64 + "=".repeat((4 - (b64.length % 4)) % 4)).replace(/-/g, "+").replace(/_/g, "/"));
+  return Uint8Array.from(raw, (c) => c.charCodeAt(0));
+};
+
+async function currentSubscription() {
+  const reg = await swReady;
+  return reg ? reg.pushManager.getSubscription() : null;
+}
+
+async function updateBell() {
+  const sub = pushSupported ? await currentSubscription().catch(() => null) : null;
+  const bell = document.getElementById("bell");
+  if (!bell) return;
+  bell.querySelector(".icon").textContent = sub ? "notifications_active" : "notifications";
+  bell.querySelector(".icon").classList.toggle("fill", Boolean(sub));
+}
+
+async function postJson(url, method, body) {
+  const res = await fetch(url, { method, headers: { "Content-Type": "application/json" }, body: body ? JSON.stringify(body) : undefined });
+  if (!res.ok) throw new Error((await res.json().catch(() => ({}))).error || `Fehler ${res.status}`);
+  return res.status === 204 ? null : res.json();
+}
+
+async function enablePush() {
+  const permission = await Notification.requestPermission();
+  if (permission !== "granted") throw new Error("Benachrichtigungen wurden nicht erlaubt");
+  const reg = await swReady;
+  if (!reg) throw new Error("Service Worker nicht verfügbar");
+  const { publicKey } = await (await fetch("/api/push")).json();
+  const sub = await reg.pushManager.subscribe({ userVisibleOnly: true, applicationServerKey: b64ToBytes(publicKey) });
+  await postJson("/api/push", "POST", sub.toJSON());
+}
+
+async function disablePush() {
+  const sub = await currentSubscription();
+  if (!sub) return;
+  await postJson("/api/push", "DELETE", { endpoint: sub.endpoint }).catch(() => {});
+  await sub.unsubscribe();
+}
+
+async function openNotify() {
+  const sub = pushSupported ? await currentSubscription().catch(() => null) : null;
+  const standalone = matchMedia("(display-mode: standalone)").matches;
+  const body = document.getElementById("dlg-body");
+  let content;
+  if (!pushSupported) {
+    content = `<p>Dieser Browser unterstützt keine Push-Benachrichtigungen.${standalone ? "" : " Installiere die App über das Chrome-Menü (⋮ → „App installieren“) und versuche es dort erneut."}</p>`;
+  } else if (Notification.permission === "denied") {
+    content = `<p>Benachrichtigungen sind für diese Seite blockiert. Erlaube sie in den App- bzw. Website-Einstellungen und öffne diesen Dialog erneut.</p>`;
+  } else {
+    content = `<p>Du bekommst eine Nachricht auf dieses Gerät:</p>
+      <ul><li>wenn eine Aufgabe mit Uhrzeit fällig wird</li><li>um 20:00 Uhr mit allem, was morgen fällig ist</li></ul>
+      <div class="state"><span class="icon ${sub ? "fill" : ""}">${sub ? "notifications_active" : "notifications_off"}</span>
+        ${sub ? "Auf diesem Gerät aktiv" : "Auf diesem Gerät aus"}</div>`;
+  }
+  const actions = !pushSupported || Notification.permission === "denied"
+    ? `<span class="spacer"></span><button type="button" class="btn text" data-close>Schließen</button>`
+    : sub
+      ? `<button type="button" class="btn danger" id="push-off">Ausschalten</button><span class="spacer"></span>
+         <button type="button" class="btn text" id="push-test">Test senden</button><button type="button" class="btn filled" data-close>Fertig</button>`
+      : `<span class="spacer"></span><button type="button" class="btn text" data-close>Später</button>
+         <button type="button" class="btn filled" id="push-on">Aktivieren</button>`;
+  body.innerHTML = `<div class="dlg notify">
+    <div class="dlg-head"><h3>Benachrichtigungen</h3>
+      <button type="button" class="icon-btn" data-close aria-label="Schließen"><span class="icon">close</span></button></div>
+    ${content}
+    <div class="dlg-actions">${actions}</div></div>`;
+  const run = (id, fn, ok) => document.getElementById(id)?.addEventListener("click", async () => {
+    try { await fn(); if (ok) snackbar(ok); } catch (err) { snackbar(err.message); }
+    await updateBell();
+    if (id !== "push-test") openNotify();
+  });
+  run("push-on", enablePush, "Benachrichtigungen aktiviert");
+  run("push-off", disablePush, "Benachrichtigungen ausgeschaltet");
+  run("push-test", () => postJson("/api/push/test", "POST"), "Testnachricht gesendet");
+  const dlg = document.getElementById("dlg");
+  if (!dlg.open) dlg.showModal();
+}
+
+
+function openFromHash() {
+  const m = /^#task-(\d+)$/.exec(location.hash);
+  if (!m) return false;
+  const id = Number(m[1]);
+  history.replaceState(null, "", "#" + state.view);
+  if (state.tasks.some((t) => t.id === id)) openTask(id);
+  else state.openAfterLoad = id;
+  return true;
+}
+
+// --- Interaktion ----------------------------------------------------------
+
+function setView(view) {
+  state.view = VIEWS.includes(view) ? view : "today";
+  store.set("todo.view", state.view);
+  if (location.hash.slice(1) !== state.view) history.replaceState(null, "", "#" + state.view);
+  render();
+}
+
+document.addEventListener("click", (e) => {
+  if (drag.suppressClick) { e.preventDefault(); return; }
+  const el = e.target.closest(`[data-toggle], [data-view], [data-project], [data-close], [data-delete], [data-clear-date], [data-id], [data-day], [data-cal],
+    [data-play], [data-plan-today], [data-focus-open], [data-focus-pick], [data-focus-close], [data-focus-done], [data-quest], [data-quest-tab],
+    [data-quest-status], [data-delete-quest], [data-session], [data-delete-session], [data-log], [data-week], [data-cal-mode], [data-target],
+    [data-clear-plan], [data-guide], [data-guide-go], [data-guide-close], [data-compose], [data-settings], [data-example],
+    [data-manual], [data-agent-undo], [data-compose-again], [data-load-models], [data-clear-key], [data-open-notify],
+    [data-tfa], [data-logout-all], [data-copy-codes], #run-pill`);
+  if (!el) {
+    if (e.target.id === "dlg") e.target.close();
+    return;
+  }
+  if (el.dataset.tfa === "setup") return startTwoFactor();
+  if (el.dataset.tfa) return askCode(el.dataset.tfa);
+  if (el.dataset.logoutAll !== undefined) return logoutEverywhere(el);
+  if (el.dataset.copyCodes) {
+    return navigator.clipboard?.writeText(el.dataset.copyCodes).then(() => snackbar("Codes kopiert"), () => snackbar("Kopieren nicht möglich"));
+  }
+  if (el.dataset.compose !== undefined) return openComposer();
+  if (el.dataset.settings !== undefined) return openSettings(el.dataset.settings);
+  if (el.dataset.example) { const f = el.closest("form"); f.text.value = el.dataset.example; return f.text.focus(); }
+  if (el.dataset.manual !== undefined) return submitCompose(el.closest("form"), false);
+  if (el.dataset.agentUndo !== undefined) return undoCompose(el);
+  if (el.dataset.composeAgain !== undefined) return openComposer();
+  if (el.dataset.loadModels !== undefined) return loadModels(el);
+  if (el.dataset.clearKey !== undefined) return saveAgentConfig(el.closest("form"), true);
+  if (el.dataset.openNotify !== undefined) return openNotify();
+  if (el.dataset.guide !== undefined) return openGuide(el.dataset.guide);
+  if (el.dataset.guideGo) return guideGo(el.dataset.guideGo);
+  if (el.dataset.guideClose !== undefined) return document.getElementById("guide").close();
+  if (el.dataset.toggle) return toggleDone(Number(el.dataset.toggle));
+  if (el.dataset.play) return togglePlay(Number(el.dataset.play));
+  if (el.dataset.planToday) return planToday(Number(el.dataset.planToday));
+  if (el.id === "run-pill") return openFocus();
+  if (el.dataset.focusOpen) return openFocus(Number(el.dataset.focusOpen));
+  if (el.dataset.focusPick) return pickFocus(Number(el.dataset.focusPick));
+  if (el.dataset.focusClose !== undefined) return document.getElementById("focus").close();
+  if (el.dataset.focusDone) return focusDone(Number(el.dataset.focusDone));
+  if (el.dataset.quest) return openQuest(el.dataset.quest === "new" ? null : Number(el.dataset.quest));
+  if (el.dataset.questTab) { state.questTab = el.dataset.questTab; return render(); }
+  if (el.dataset.questStatus) return setQuestStatus(el.closest("form"), el.dataset.questStatus);
+  if (el.dataset.deleteQuest !== undefined) return deleteQuest(el);
+  if (el.dataset.session) return openSession(Number(el.dataset.session));
+  if (el.dataset.deleteSession !== undefined) return deleteSession(el);
+  if (el.dataset.log !== undefined) return openSession(null);
+  if (el.dataset.target !== undefined) return openTarget();
+  if (el.dataset.clearPlan !== undefined) { el.closest("form").plan_date.value = ""; return; }
+  if (el.dataset.calMode) { state.calMode = el.dataset.calMode; store.set("todo.calMode", state.calMode); return render(); }
+  if (el.dataset.week) {
+    const key = state.view === "review" ? "reviewWeek" : "planWeek";
+    const cur = state[key] || mondayOf(state.today);
+    state[key] = el.dataset.week === "today" ? mondayOf(state.today) : addDays(cur, el.dataset.week === "next" ? 7 : -7);
+    return render();
+  }
+  if (el.dataset.view) {
+    if (document.getElementById("dlg").open) document.getElementById("dlg").close();
+    return setView(el.dataset.view);
+  }
+  if (el.dataset.project !== undefined) { state.project = el.dataset.project || null; return render(); }
+  if (el.dataset.close !== undefined) return document.getElementById("dlg").close();
+  if (el.dataset.delete !== undefined) return deleteTask(el);
+  if (el.dataset.clearDate !== undefined) {
+    const form = el.closest("form");
+    form.due_date.value = ""; form.due_time.value = "";
+    return;
+  }
+  if (el.dataset.id) return openTask(Number(el.dataset.id));
+  if (el.dataset.day) { state.calSelected = el.dataset.day; return render(); }
+  if (el.dataset.cal && state.calMode === "week") {
+    state.calWeek = el.dataset.cal === "today" ? mondayOf(state.today) : addDays(state.calWeek || mondayOf(state.today), el.dataset.cal === "next" ? 7 : -7);
+    return render();
+  }
+  if (el.dataset.cal) {
+    if (el.dataset.cal === "today") { state.calMonth = state.today.slice(0, 7); state.calSelected = state.today; }
+    else {
+      const [y, m] = state.calMonth.split("-").map(Number);
+      const d = new Date(y, m - 1 + (el.dataset.cal === "next" ? 1 : -1), 1);
+      state.calMonth = isoDate(d).slice(0, 7);
+    }
+    render();
+  }
+});
+
+document.addEventListener("submit", (e) => {
+  const handlers = {
+    edit: submitEdit, "quest-form": submitQuest, "session-form": submitSession,
+    "agent-form": (form) => submitCompose(form, Boolean(agentConfig?.ready)),
+    "agent-config": (form) => saveAgentConfig(form),
+    "tfa-enable": submitTwoFactor, "tfa-code": submitTwoFactor,
+    "target-form": (form) => {
+      document.getElementById("dlg").close();
+      mutate("PATCH", "/api/settings", { weekly_target_hours: Number(form.hours.value) }, "Wochenziel gespeichert").catch(() => {});
+    },
+  };
+  if (!handlers[e.target.id]) return;
+  e.preventDefault();
+  handlers[e.target.id](e.target);
+});
+// Notizen im Fokus beim Verlassen des Feldes speichern
+document.addEventListener("focusout", (e) => {
+  const id = Number(e.target.dataset?.focusNotes);
+  const t = id && taskById(id);
+  if (t && e.target.value.trim() !== t.notes) saveTask(id, { notes: e.target.value.trim() }, "Notizen gespeichert", false);
+});
+document.getElementById("focus").addEventListener("close", () => render());
+document.getElementById("q").addEventListener("input", (e) => { state.query = e.target.value; render(); });
+document.addEventListener("keydown", (e) => {
+  const typing = ["INPUT", "TEXTAREA", "SELECT"].includes(document.activeElement.tagName);
+  const inFocus = document.getElementById("focus").open;
+  if (inFocus && e.key === " " && !typing && state.focusTask && !document.activeElement.matches("button")) {
+    e.preventDefault();
+    return togglePlay(state.focusTask);
+  }
+  if (e.key === "/" && !typing && !inFocus) { e.preventDefault(); document.getElementById("q").focus(); }
+  if (e.key === "?" && !typing) { e.preventDefault(); openGuide(); }
+  if (e.key === "n" && !typing && !e.metaKey && !e.ctrlKey && !document.querySelector("dialog[open]")) { e.preventDefault(); openComposer(); }
+  if (e.key === "Enter" && !typing && document.activeElement.matches?.("[data-focus-pick]")) return pickFocus(Number(document.activeElement.dataset.focusPick));
+  if (e.key === "Enter" && !typing && document.activeElement.matches?.("[data-id]")) openTask(Number(document.activeElement.dataset.id));
+});
+window.addEventListener("hashchange", () => { if (!openFromHash()) setView(location.hash.slice(1)); });
+document.addEventListener("visibilitychange", () => {
+  if (document.hidden) return;
+  load();
+  if (!events || events.readyState === EventSource.CLOSED) connectLive();
+});
+setInterval(() => { if (!document.hidden && !liveOk()) load(); }, 10000);
+setInterval(() => { if (!document.hidden) load(); }, 300000); // Datumswechsel; kostet live nur ein 304
+setInterval(tick, 1000);
+// Laufende Blöcke in der Zeitleiste und den Wochenfortschritt minütlich nachziehen
+setInterval(() => { if (running() && !document.hidden) render(); }, 60000);
+
+const startHash = location.hash.slice(1);
+state.view = VIEWS.includes(startHash) ? startHash : store.get("todo.view") || "today";
+state.calMode = store.get("todo.calMode") === "week" ? "week" : "month";
+openFromHash();
+setView(state.view);
+load();
+connectLive();
+updateBell();
+</script>
+</body>
+</html>

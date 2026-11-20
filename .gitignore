@@ -1,0 +1,6 @@
+.venv/
+data/
+__pycache__/
+.env
+# Eigene Fly-Konfiguration (App-Name, URL); Vorlage: fly.toml.example
+fly.toml
