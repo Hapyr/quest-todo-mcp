@@ -3,6 +3,7 @@ name = "todo-mcp"
 version = "0.1.0"
 description = "Persönliche Aufgabenliste als MCP-Server mit Weboberfläche"
 readme = "README.md"
+license = "MIT"
 requires-python = ">=3.12"
 dependencies = [
     "anthropic>=2.11.0",

@@ -144,3 +144,7 @@ gespeichert):
 
 `overview`, `list_tasks`, `get_task`, `list_projects`, `add_task`, `update_task`, `complete_tasks`, `delete_tasks`,
 `list_quests`, `add_quest`, `update_quest`, `start_focus`, `stop_focus`, `time_report`
+
+## Lizenz
+
+MIT, siehe [LICENSE](LICENSE).
