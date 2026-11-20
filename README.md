@@ -1,9 +1,29 @@
-# todo-mcp
+# quest-todo-mcp
 
-Persönliche Aufgabenliste als MCP-Server. Neue Aufgaben legt nur Claude an. Die Website zeigt sie als
-Liste, Board und Kalender und erlaubt Bearbeiten: Karten im Board zwischen Status ziehen, im Kalender
-auf einen anderen Tag ziehen, in der Liste abhaken, im Dialog alle Felder ändern oder löschen.
-Jede Änderung lässt sich über die Meldung unten rückgängig machen.
+Persönliche Aufgabenliste als MCP-Server für Claude – mit einer schnellen Weboberfläche, die sich als App
+installieren lässt. Aufgaben entstehen im Gespräch mit Claude, per Beschreibung an ein Sprachmodell deiner
+Wahl oder direkt in der Oberfläche. Geplant wird nach Tagen statt nach Uhrzeiten, gearbeitet an einer Sache
+zur Zeit, und die erfasste Zeit zeigt, wie viel davon in deine Ziele fließt.
+
+![Heute: Tagesplan mit Quest-Arbeit, laufendem Timer und Zeitleiste](docs/screenshots/heute.jpg)
+
+| | |
+| --- | --- |
+| ![Woche planen](docs/screenshots/planen.jpg) | ![Fokus](docs/screenshots/fokus.jpg) |
+| ![Wochenrückblick](docs/screenshots/rueckblick.jpg) | ![Quests](docs/screenshots/quests.jpg) |
+| ![Neue Aufgabe per KI](docs/screenshots/neue-aufgabe.jpg) | ![Auf dem Handy](docs/screenshots/handy.jpg) |
+
+Alle Ansichten: Heute, Planen, Liste, Board, Kalender (Monat und Woche), Quests, Rückblick, Fokus. Karten
+lassen sich ziehen (Status, Datum, Tag im Plan), jede Änderung lässt sich über die Meldung unten
+rückgängig machen, und alle offenen Geräte bleiben in Echtzeit synchron.
+
+## Ausprobieren
+
+```sh
+export TODO_ACCESS_KEY=$(openssl rand -hex 32) TODO_DB_PATH=data/demo.db
+uv run python scripts/seed_demo.py   # ausgedachte Aufgaben, Quests und 12 Wochen Zeiterfassung
+uv run todo-mcp                      # http://localhost:8000, Anmelden mit $TODO_ACCESS_KEY
+```
 
 ## Quests, Tagesplan & Fokus
 
@@ -77,7 +97,7 @@ Ein geheimer Key (`TODO_ACCESS_KEY`) schützt alles, optional zusätzlich ein zw
   immer Key (und Code) und zeigt das Ziel. Tokens werden nur als SHA-256-Hash gespeichert; Access-Tokens
   laufen nach 1 h ab, Refresh-Tokens (90 Tage) rotieren. Ungenutzte Client-Registrierungen werden begrenzt.
 - Nach 10 Fehlversuchen pro IP ist der Login 15 Minuten gesperrt; Formulare fremder Seiten zählen nicht mit.
-- Header: CSP (Hauptseite nur mit Hash des eigenen Skripts), HSTS, `frame-ancestors 'none'`/`X-Frame-Options`,
+- Header: CSP (Hauptseite nur mit Hash des eigenen Skripts), HSTS, `frame-ancestors 'self'`/`X-Frame-Options: SAMEORIGIN` (keine fremden Seiten),
   `nosniff`, `Referrer-Policy`. Anfragen über 1 MB werden abgelehnt.
 
 ## Lokal starten

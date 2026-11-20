@@ -566,7 +566,7 @@ def with_session(response: Response) -> Response:
 # Login- und Freigabeseiten kommen ohne Skripte aus. Kein form-action: Nach der OAuth-Freigabe leitet
 # der Server zum Client (z. B. claude.ai) weiter, das würde form-action blockieren.
 CARD_CSP = ("default-src 'none'; style-src 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; "
-            "img-src 'self' data:; manifest-src 'self'; frame-ancestors 'none'; base-uri 'none'")
+            "img-src 'self' data:; manifest-src 'self'; frame-ancestors 'self'; base-uri 'none'")
 
 
 def page(title: str, body: str, status_code: int = 200) -> HTMLResponse:
@@ -620,7 +620,7 @@ def index_page() -> tuple[bytes, bytes, str]:
         hashes = " ".join(f"'sha256-{base64.b64encode(hashlib.sha256(x).digest()).decode()}'" for x in scripts)
         csp = (f"default-src 'self'; script-src {hashes}; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; "
                "font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; worker-src 'self'; "
-               "manifest-src 'self'; object-src 'none'; frame-ancestors 'none'; base-uri 'none'; form-action 'self'")
+               "manifest-src 'self'; object-src 'none'; frame-ancestors 'self'; base-uri 'none'; form-action 'self'")
         _page_cache.update(mtime=mtime, raw=raw, gz=gzip.compress(raw, 9), etag=f'"{hashlib.sha1(raw).hexdigest()[:16]}"', csp=csp)
     return _page_cache["raw"], _page_cache["gz"], _page_cache["etag"]
 
@@ -1088,7 +1088,7 @@ MAX_BODY = 1_000_000  # Bytes; die größten echten Anfragen sind Beschreibungen
 
 SECURITY_HEADERS = {
     "X-Content-Type-Options": "nosniff",
-    "X-Frame-Options": "DENY",
+    "X-Frame-Options": "SAMEORIGIN",
     "Referrer-Policy": "same-origin",
     "Permissions-Policy": "camera=(), microphone=(), geolocation=()",
 }

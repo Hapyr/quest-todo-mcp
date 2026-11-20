@@ -27,6 +27,10 @@
     --shadow: 0 1px 2px rgba(0,0,0,.3), 0 1px 3px 1px rgba(0,0,0,.15);
     --radius: 16px;
     --inverse: #303030; --on-inverse: #f2f2f2; --inverse-primary: #a8c7fa; --field: #f0f4f9;
+    /* Kanten & Tiefe: Haarlinie plus sehr weicher Schatten, damit weiße Flächen sich vom Grund abheben */
+    --line: #e3e8ef;
+    --elev-1: 0 1px 2px rgba(15, 23, 42, .04), 0 1px 3px rgba(15, 23, 42, .05);
+    --elev-2: 0 2px 4px rgba(15, 23, 42, .05), 0 8px 20px rgba(15, 23, 42, .08);
   }
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
@@ -37,6 +41,9 @@
       --p-high: #f28b82; --p-medium: #fdd663; --p-low: #8ab4f8;
       --shadow: 0 1px 3px rgba(0,0,0,.6);
       --inverse: #e3e3e3; --on-inverse: #303030; --inverse-primary: #0b57d0; --field: #2a2b2d;
+      --line: #2f3134;
+      --elev-1: 0 1px 2px rgba(0, 0, 0, .35);
+      --elev-2: 0 4px 16px rgba(0, 0, 0, .5);
     }
   }
   * { box-sizing: border-box; }
@@ -351,9 +358,9 @@
   .week-progress small { margin-top: 6px; }
 
   /* --- Heute --- */
-  .today { display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: 24px; align-items: start; }
-  .today > * { min-width: 0; }
-  .today > div > .group:first-child { margin-top: 0; }
+  .today-layout { display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: 24px; align-items: start; }
+  .today-layout > * { min-width: 0; }
+  .today-layout > div > .group:first-child { margin-top: 0; }
   .group h2 .aside { margin-left: auto; color: var(--text-3); font-weight: 400; font-variant-numeric: tabular-nums; }
   .row .side { display: flex; align-items: center; gap: 2px; flex-shrink: 0; margin: -8px -8px -8px 0; }
   .row .side .prio { margin: 0 4px; }
@@ -501,7 +508,7 @@
   .chart-labels span { flex: 1; text-align: center; font-size: 11px; color: var(--text-2); min-width: 0; white-space: nowrap; overflow: hidden; }
   .chart-labels .cur { color: var(--text); font-weight: 500; }
   .ref { position: absolute; left: 0; right: 0; border-top: 1px dashed var(--text-3); pointer-events: none; z-index: 1; }
-  .ref span { position: absolute; right: 0; top: -17px; font-size: 11px; color: var(--text-3); background: var(--surface); padding-left: 4px; }
+  .ref span { position: absolute; left: 0; top: -17px; font-size: 11px; color: var(--text-3); background: var(--surface); padding-right: 6px; }
   .hbar { display: grid; grid-template-columns: minmax(0, 150px) 1fr auto; gap: 12px; align-items: center; margin: 10px 0; font-size: 13px; }
   .hbar .name { display: flex; align-items: center; gap: 8px; min-width: 0; }
   .hbar .name span:last-child { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
@@ -664,6 +671,26 @@
   .codes { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 16px; }
   .codes code { font-size: 15px; letter-spacing: 1px; text-align: center; padding: 10px; border-radius: 10px; background: var(--container); }
 
+  /* --- Kanten & Tiefe (überall gleich) --- */
+  header { transition: box-shadow .2s; }
+  header.scrolled { box-shadow: 0 1px 0 var(--line), 0 6px 16px -12px rgba(15, 23, 42, .25); }
+  .panel, .grid, .timeline-card, .week-card, .tile, .chart-card, .ladder, .questions li, .compare > div {
+    border: 1px solid var(--line); box-shadow: var(--elev-1);
+  }
+  button.tile:hover { box-shadow: var(--elev-2); }
+  .quest-card { border: 1px solid var(--line); box-shadow: inset 0 3px 0 var(--qc), var(--elev-1); transition: box-shadow .15s; }
+  .quest-card:hover { box-shadow: inset 0 3px 0 var(--qc), var(--elev-2); }
+  .quest-card.new, .quest-card.new:hover { border: 2px dashed var(--outline); box-shadow: none; }
+  .compare .better { border-color: transparent; box-shadow: inset 0 0 0 1.5px var(--primary), var(--elev-1); }
+  .card { border: 1px solid var(--line); box-shadow: var(--elev-1); transition: box-shadow .15s; }
+  .card[style*="border-left-color"] { border-left-width: 3px; }
+  .card:hover { box-shadow: var(--elev-2); }
+  .column { box-shadow: inset 0 0 0 1px var(--line); }
+  .flow-step { border: 1px solid var(--line); box-shadow: var(--elev-1); }
+  .flow-step:hover { box-shadow: var(--elev-2); }
+  .dlg .panel { box-shadow: none; }
+  .recipe { box-shadow: var(--elev-1); }
+
   /* --- Formularergänzungen --- */
   .f .lbl { width: 64px; flex-shrink: 0; font-size: 13px; }
   .f select {
@@ -692,7 +719,7 @@
     .run-pill { padding: 0 10px; }
     .run-pill .what { display: none; }
     .page-head h1 { font-size: 24px; }
-    .today { grid-template-columns: 1fr; }
+    .today-layout { grid-template-columns: 1fr; }
     .timeline-card { position: static; }
     .tl-scroll { max-height: 420px; --hour: 40px; }
     .today-stats { gap: 16px; width: 100%; justify-content: space-between; }
@@ -844,6 +871,7 @@ const weekSessions = (monday) => { const end = addDays(monday, 6); return state.
 function fmtDur(sec) {
   const m = Math.floor(sec / 60);
   if (m < 1) return sec >= 1 ? "<1 min" : "0 min";
+  if (m >= 600) return `${Math.round(m / 60)} h`; // ab 10 h reicht die Stunde
   return m < 60 ? `${m} min` : `${Math.floor(m / 60)}:${pad2(m % 60)} h`;
 }
 const fmtHours = (sec) => sec < 3600 ? fmtDur(sec) : `${(sec / 3600).toLocaleString("de-DE", { maximumFractionDigits: 1 })} h`;
@@ -1136,7 +1164,7 @@ function renderToday(tasks) {
   }
   left += foldGroup("Heute erledigt", done);
 
-  return `<div class="page">${head}<div class="today"><div>${left}</div>
+  return `<div class="page">${head}<div class="today-layout"><div>${left}</div>
     <aside class="timeline-card"><h2><span class="icon" style="font-size:18px">schedule</span>Zeitleiste
       <span class="aside" data-live-day="${today}">${fmtDur(daySecs)}</span></h2>${timeGrid([today], { head: false })}</aside>
   </div></div>`;
@@ -2854,6 +2882,7 @@ document.addEventListener("visibilitychange", () => {
 setInterval(() => { if (!document.hidden && !liveOk()) load(); }, 10000);
 setInterval(() => { if (!document.hidden) load(); }, 300000); // Datumswechsel; kostet live nur ein 304
 setInterval(tick, 1000);
+addEventListener("scroll", () => document.querySelector("header").classList.toggle("scrolled", scrollY > 4), { passive: true });
 // Laufende Blöcke in der Zeitleiste und den Wochenfortschritt minütlich nachziehen
 setInterval(() => { if (running() && !document.hidden) render(); }, 60000);
 
